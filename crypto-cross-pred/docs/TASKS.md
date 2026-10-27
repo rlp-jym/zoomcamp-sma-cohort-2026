@@ -16,7 +16,7 @@ Each task lists **Done when** = the acceptance test.
 | ID | Task | Done when | Commit |
 |---|---|---|---|
 | P0-01 | **[DECISION] Standalone project root.** Confirm `crypto-cross-pred/pyproject.toml` as its own `uv` project, separate from the homework `pyproject.toml` at repo root. Recommended: standalone, so Docker and CI can target it cleanly. | Decision recorded in DECISIONS.md §3 | |
-| P0-02 | Create `crypto-cross-pred/pyproject.toml` with groups: `dev` (ruff, pytest), `app` (streamlit, plotly), `bonus` (python-telegram-bot or just requests), core (pandas, numpy, scikit-learn, xgboost, optuna, pyarrow, requests, pydantic-settings, huggingface-hub, duckdb) | `uv sync --all-groups` succeeds | |
+| P0-02 | Create `crypto-cross-pred/pyproject.toml` (`requires-python = ">=3.12"`) with groups: `core` (pandas, numpy, scikit-learn, xgboost, optuna, pyarrow, duckdb, requests, pydantic-settings, pyyaml, pandas-datareader, tqdm, huggingface-hub), `dev` (ruff, pytest), `notebook` (jupyter, nbconvert, matplotlib), `app` (streamlit, plotly), `bonus` (python-telegram-bot or just requests) | `uv sync --all-groups` succeeds; `uv.lock` committed | |
 | P0-03 | Create package tree `src/crypto_cross_pred/{io,data,models,sim,report}` with `__init__.py` stubs | `uv run python -c "import crypto_cross_pred"` works | |
 | P0-04 | `config/config.yaml` + `src/crypto_cross_pred/config.py` (pydantic-settings): universe filters, date range, horizon, thresholds, cost bps, paths, HF repo | `uv run python -m crypto_cross_pred.cli config` prints resolved config | |
 | P0-05 | `src/crypto_cross_pred/cli.py` with subcommands `download, transform, features, train, predict, simulate, notify, all` (stubs raising `NotImplementedError`) | `--help` lists all commands | |
@@ -28,6 +28,7 @@ Each task lists **Done when** = the acceptance test.
 | P0-11 | `DECISIONS.md` seeded with D-01…D-35 | Every open decision lists the task it blocks | 25a6c7d, 05dc9ae |
 | P0-12 | `.gitattributes`: `* text=auto`, LF for md/py/yml/toml/ipynb | No CRLF churn warnings on commit | 05dc9ae |
 | P0-13 | Branch protection on `main`: require the `ci` check (GitHub UI) | Direct pushes to `main` blocked; `develop` stays unprotected | |
+| P0-14 | `notebooks/` directory + kernel, and one export path (`nbconvert`) reused by P3-07, P4-10, P5-10, P6-06 | A one-cell notebook exports to `.py` and the script runs headless | |
 
 **Rubric:** 6.2 (deps), 7.1 (modular code)
 
@@ -154,7 +155,7 @@ Each task lists **Done when** = the acceptance test.
 | P7-01 | `Dockerfile` (multi-stage, uv-based, non-root) | `docker build` + `docker run ... cli --help` works | |
 | P7-02 | `docker-compose.yml` (pipeline service + app service) | `docker compose up` serves the app | |
 | P7-03 | `app/streamlit_app.py`: today's picks, equity curves vs benchmarks, metrics table, model health | Loads from HF snapshot; no local data needed | |
-| P7-04 | Deploy to Streamlit Community Cloud (public app) | Public URL renders with real data | |
+| P7-04 | Deploy to Streamlit Community Cloud (public app); app-root dependencies resolve there (app-local `requirements.txt` or pyproject) | Public URL renders with real data | |
 | P7-05 | `.dockerignore`, image size sane (<1.5GB) | Build time recorded | |
 
 **Rubric:** 7.4, 7.5
