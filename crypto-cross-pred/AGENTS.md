@@ -169,7 +169,9 @@ A task is done when:
 
 1. **Work on `develop`.** Commit frequently and push to `develop` as work progresses.
 2. **Never push to `main` unless explicitly asked.** `main` only receives merges from
-   `develop`, and only on request. Never commit directly to `main`.
+   `develop`, and only on request. Never commit directly to `main`. The branch is protected
+   by a repository ruleset, so a direct push is rejected: land changes with a pull request
+   from `develop` (`gh pr create` → `gh pr merge --merge`).
 3. **Never amend or force-push a pushed commit.** Fix forward with a new commit.
 
 **Commits**
