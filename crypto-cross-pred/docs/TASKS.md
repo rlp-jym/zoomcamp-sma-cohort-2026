@@ -16,7 +16,7 @@ Each task lists **Done when** = the acceptance test.
 | ID | Task | Done when | Commit |
 |---|---|---|---|
 | P0-01 | **[DECISION] Standalone project root.** Confirm `crypto-cross-pred/pyproject.toml` as its own `uv` project, separate from the homework `pyproject.toml` at repo root. Recommended: standalone, so Docker and CI can target it cleanly. | Decision recorded in DECISIONS.md §3 | |
-| P0-02 | Create `crypto-cross-pred/pyproject.toml` (`requires-python = ">=3.12"`) with groups: `core` (pandas, numpy, scikit-learn, xgboost, optuna, pyarrow, duckdb, requests, pydantic-settings, pyyaml, pandas-datareader, tqdm, huggingface-hub), `dev` (ruff, pytest), `notebook` (jupyter, nbconvert, matplotlib), `app` (streamlit, plotly), `bonus` (python-telegram-bot or just requests) | `uv sync --all-groups` succeeds; `uv.lock` committed | |
+| P0-02 | Create `crypto-cross-pred/pyproject.toml` (`requires-python = ">=3.12"`) with groups: `core` (pandas, numpy, scikit-learn, optuna, pyarrow, duckdb, requests, pydantic-settings, pyyaml, pandas-datareader, tqdm, huggingface-hub), `dev` (ruff, pytest), `notebook` (jupyter, nbconvert, matplotlib), `app` (streamlit, plotly), `bonus` (python-telegram-bot or just requests) | `uv sync --all-groups` succeeds; `uv.lock` committed | |
 | P0-03 | Create package tree `src/crypto_cross_pred/{io,data,models,sim,report}` with `__init__.py` stubs | `uv run python -c "import crypto_cross_pred"` works | |
 | P0-04 | `config/config.yaml` + `src/crypto_cross_pred/config.py` (pydantic-settings): universe filters, date range, horizon, thresholds, cost bps, paths, HF repo | `uv run python -m crypto_cross_pred.cli config` prints resolved config | |
 | P0-05 | `src/crypto_cross_pred/cli.py` with subcommands `download, transform, features, train, predict, simulate, notify, all` (stubs raising `NotImplementedError`) | `--help` lists all commands | |
@@ -28,7 +28,7 @@ Each task lists **Done when** = the acceptance test.
 | P0-11 | `DECISIONS.md` seeded with D-01…D-35 | Every open decision lists the task it blocks | 25a6c7d, 05dc9ae |
 | P0-12 | `.gitattributes`: `* text=auto`, LF for md/py/yml/toml/ipynb | No CRLF churn warnings on commit | 05dc9ae |
 | P0-13 | Branch protection on `main`: require the `ci` check (GitHub UI) | Direct pushes to `main` blocked; `develop` stays unprotected | |
-| P0-14 | `notebooks/` directory + kernel, and one export path (`nbconvert`) reused by P3-07, P4-10, P5-10, P6-06 | A one-cell notebook exports to `.py` and the script runs headless | |
+| P0-14 | `notebooks/` directory + kernel, and one export path (`nbconvert`) reused by P3-07, P4-12, P5-10, P6-06 | A one-cell notebook exports to `.py` and the script runs headless | |
 
 **Rubric:** 6.2 (deps), 7.1 (modular code)
 
@@ -97,15 +97,17 @@ Each task lists **Done when** = the acceptance test.
 |---|---|---|---|
 | P4-01 | `models/validate.py`: purged walk-forward, monthly retrain, 24h purge+embargo — **dev period only** (2021-01 → 2025-10) | Fold boundaries asserted; no overlap between the train label window and the dev_oos month; holdout never loaded | |
 | P4-02 | Fold-local preprocessing pipeline (impute, scale, target-encode) | Pipeline fitted on the train fold only; the validation fold proves it | |
-| P4-03 | Ridge baseline for both targets | IC / AUC recorded as the floor | |
-| P4-04 | RandomForest for both targets | Beats or matches Ridge on rank IC | |
-| P4-05 | XGBoost for both targets, early stopping on valid fold | Ranked best on rank IC | |
-| P4-06 | `models/tuning.py`: Optuna, 30–50 trials, objective = rank IC / AUC, on a dev window only | Best params saved to `config/params.json`; tuning outside WF loop | |
-| P4-07 | Walk-forward run across all folds; store per-fold metrics + OOS predictions | `predictions/{date}.parquet` with `pred_reg`, `pred_clf`, `p_top` | |
-| P4-08 | Metrics report: rank IC, IC decay, decile spread, precision@top-decile, AUC, per-symbol and per-month breakdown | Table + plots in notebook 02 | |
-| P4-09 | Decision rules implemented: conviction thresholds and sizing (SPEC §5) | Unit test on synthetic probs | |
-| P4-10 | `notebooks/02_modeling.ipynb` + exported script | Runs headless | |
-| P4-11 | Log every modelling run in `experiments.md`: change, reason, dev OOS metric, verdict, keep/drop | One row per run; two-strike rule applied | |
+| P4-03 | **Ridge** on `cs_excess_ret_24h` (standardized numerics), `alpha` tuned — establishes the linear IC floor and is the regression half of the study | Rank IC recorded as the floor | |
+| P4-04 | **DecisionTree** for both targets (`DecisionTreeRegressor` + `DecisionTreeClassifier`), `max_depth` sweep as in module 3; one plotted tree + feature importance | Predictions for both targets; importances written to the report | |
+| P4-05 | **RandomForest** for both targets (`RandomForestRegressor` + `RandomForestClassifier`), `n_estimators` / `max_depth` sweep as in module 4 | Beats or matches the single tree on rank IC | |
+| P4-06 | **LogisticRegression** classifier on top-quintile membership, scaled features | Calibrated-ish probabilities; AUC recorded as the linear classifier floor | |
+| P4-07 | **Regression vs classification study**: same folds, features and universe; compare rank IC (regression) against AUC + precision@top-decile (classification); decide which drives sim3 sizing | Finding written to `experiments.md`; the choice is stated in SPEC §5 | |
+| P4-08 | `models/tuning.py`: Optuna, 30–50 trials, objective = rank IC / AUC, on a dev window only | Best params saved to `config/params.json`; tuning outside WF loop | |
+| P4-09 | Walk-forward run across all folds; store per-fold metrics + OOS predictions | `predictions/{date}.parquet` with `pred_reg`, `pred_clf`, `p_top` | |
+| P4-10 | Metrics report: rank IC, IC decay, decile spread, precision@top-decile, AUC, per-symbol and per-month breakdown | Table + plots in notebook 02 | |
+| P4-11 | Decision rules implemented: conviction thresholds and sizing (SPEC §5) | Unit test on synthetic probs | |
+| P4-12 | `notebooks/02_modeling.ipynb` + exported script | Runs headless | |
+| P4-13 | Log every modelling run in `experiments.md`: change, reason, dev OOS metric, verdict, keep/drop | One row per run; two-strike rule applied | |
 
 **Rubric:** 4.1, 4.2, 4.3, 4.4, 4.5
 

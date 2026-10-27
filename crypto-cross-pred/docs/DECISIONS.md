@@ -24,7 +24,7 @@ here.
 | D-06 | Target type | **Dual:** regression + classifier | Regression for ranking, probability for conviction sizing and threshold rules | active |
 | D-07 | Universe | **150–250 liquid symbols**, BTC as anchor | Satisfies >1M records; enables cross-section; survivorship bias discussed explicitly | active |
 | D-08 | Feature sources | Binance futures + **Crypto Fear & Greed** | 20+ features from one API, no scraping risk; F&G is a cheap extra source | active |
-| D-09 | Models | **Ridge → RandomForest → XGBoost** | Baseline IC floor, lecture requirement, new model; all tabular, all tunable | active |
+| D-09 | Models | **Ridge → RandomForest → XGBoost** | Baseline IC floor, lecture requirement, new model; all tabular, all tunable | superseded by D-36 |
 | D-10 | Strategy ladder | **long-only → long-short → risk-managed** | Natural difficulty ramp, each step adds a rubric point | active |
 | D-11 | Stack | **uv + GitHub Actions cron + Streamlit Community Cloud** | All free; public repo = unlimited Actions minutes | active |
 | D-12 | Cost constraint | **100% free tools, no payments** | Hard constraint from author | active |
@@ -36,6 +36,7 @@ here.
 | D-33 | Secondary data source | **FRED macro series**: `VIXCLS`, `DGS10`, `DFF`, `DTWEXBGS`, `BAMLH0A0HYM2` (extends D-08) | The rubric's bolded data-source point requires a source *from the lectures*. Binance is the "new source" point; FRED covers the lecture source. The series also double as risk-on/risk-off regime features, which a crypto cross-section lacks otherwise. | active |
 | D-34 | Rule-based baseline | **`sim0`**: funding-carry rule, no model — long the 20 most-negative funding rates, short the 20 most-positive (extends D-10) | The course explicitly asks whether ML beats simple hand-written rules. A baseline gives the model a floor to beat and turns "ML adds value" into a testable claim rather than an assumption. Built before sim1/sim2 so all four share one cost model. | active |
 | D-35 | Development method | **AI coding agents used deliberately**, transferring the practice from the AI Dev Tools Zoomcamp: spec first, decision record, task decomposition, explicit agent rules | No rule prohibits it. The value is in the process, not the speed. Domain choices, hypotheses, thresholds and verdicts stay with the author; disclosure is in the README. | active |
+| D-36 | Model set | **Lecture models only + one regression study** (supersedes D-09): DecisionTree, RandomForest, LogisticRegression — plus Ridge on the continuous target. No XGBoost, no neural net, no ARIMA | Simplicity is the point: every model is explainable in one sentence, and the course never touched XGBoost. The bolded rubric point needs a lecture model (RandomForest); "more than one lecture model" needs two (add DecisionTree); "new models: … Regression" is earned by the regression study, which the course does not do anywhere. Models beyond the course are reserved for the ML Zoomcamp project rather than duplicated here. | active |
 
 ---
 
@@ -144,6 +145,7 @@ exists** (D-30).
 | Second market adapter to prove reuse | Imports a second dataset's quality problems; a config swap demonstrates the seam at a fraction of the cost |
 | Separate template package/repo | Turns a course project into a library project; high refactor risk, low rubric value |
 | LSTM / sentiment / on-chain features | Scope creep; each adds a failure mode the timeline cannot absorb |
+| XGBoost / Keras NN / ARIMA | Beyond the course's model set and not needed for any point (D-36). XGBoost and the neural-net family are reserved for the ML Zoomcamp project; ARIMA is univariate and cannot rank a 200-symbol cross-section |
 | Real-money broker integration | Unnecessary risk; testnet satisfies the bonus criterion |
 
 ---
@@ -175,8 +177,25 @@ here so the reasoning is auditable and does not have to be re-derived later.
 | Cross-course reuse is allowed if each course's criteria are met | FAQ: "Can I reuse this project for the MLOps Zoomcamp...?" — "Yes" | D-22 |
 | The rubric does not require profitability | Criteria: one optional point, comparative only | D-22 |
 | A lecture data source is required (bolded) | Criteria §2, bolded | D-33 |
-| A lecture model is required (bolded) | Criteria §4, bolded | D-09 |
+| A lecture model is required (bolded) | Criteria §4, bolded | D-36 |
+| Lecture models are exactly DecisionTree and RandomForest | Criteria §4, bolded: "One model from the lecture is used (DecisionTree, RandomForest)" | D-36 — Ridge does not satisfy this line; the second lecture-model point needs both |
+| "More than one model from the lecture" is a separate point | Criteria §4 | D-36 — DecisionTree + RandomForest |
+| Regression counts as a *new* model, not a lecture model | Criteria §4: "New models are introduced: XGBoost, Regression, Deep Neural Networks…" | D-36 — the regression study earns this point |
 | No rule prohibits AI tooling | Criteria and FAQ contain no such rule; the only adjacent line is "the code must be your own", stated in the solo-vs-group answer | §9.1, D-35 |
+
+**Lecture model inventory** (read from the downloaded course notebooks, 2025 and 2026 cohorts):
+
+| Model | Module | How it is taught |
+|---|---|---|
+| ARIMA (`statsmodels`) | 3 | Per-ticker univariate, manual `(p,q,r)` grid |
+| DecisionTreeClassifier | 3, 4, 5 | `max_depth` sweep, `plot_tree`, feature importance |
+| RandomForestClassifier | 4, 5 | `n_estimators` / `max_depth` sweep |
+| LogisticRegression | 4, 5 | With `StandardScaler` |
+| Keras Sequential NN | 4, 5 | `Dense` + `Dropout` |
+
+No XGBoost, LSTM, CatBoost, LightGBM or SVM appears in any notebook's code cells. The course
+predicts direction only — no regressor is taught anywhere, which is why the regression study is
+the natural extension rather than an extra model (D-36).
 
 ### 9.1 On AI tooling
 
@@ -216,6 +235,7 @@ Chronological record of what changed and why. This is the part that shows the pr
 | 6 | Three simulation strategies | Four, with `sim0` rule baseline first | Answers the course's own question: does ML beat a simple rule? |
 | 7 | Docs at the project root | Docs in `docs/`; `AGENTS.md` stays at root | Tidiness without breaking agent discovery |
 | 8 | Naming: `project_1`, `crypto_ls` | `crypto-cross-pred`, `crypto_cross_pred` | Consistency across course projects |
+| 9 | Ridge → RandomForest → XGBoost | Lecture models only (DecisionTree, RandomForest, LogisticRegression) + a regression study | Reading the actual course notebooks showed XGBoost is never taught; the rubric's new-model point is better earned by the regression study, and the exotic models are reserved for the ML Zoomcamp project |
 
 Each pivot is a decision, not a correction of an error: the earlier version was reasonable
 given what was known at the time.
