@@ -1,0 +1,27 @@
+# Data — never committed (see docs/AGENTS.md)
+data/
+*.parquet
+*.zip
+
+# Environments
+.venv/
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+
+# Secrets
+.env
+
+# Model / run artifacts
+mlruns/
+*.joblib
+*.pkl
+
+# Course reference material — local snapshot only
+project-criteria.md
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
