@@ -5,6 +5,12 @@ on:
     branches: [develop, main]
     paths:
       - 'crypto-cross-pred/**'
+      - '.github/workflows/**'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'crypto-cross-pred/**'
+      - '.github/workflows/**'
   workflow_dispatch:
 
 defaults:
