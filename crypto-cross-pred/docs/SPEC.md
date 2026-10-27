@@ -53,7 +53,7 @@ pipeline for another market means writing one adapter and editing one config fil
 | 1 | Problem description | 4 | README with context + goal; new problem definition (hourly, cross-sectional, crypto perps, derivatives features); SOTA step-by-step writeup with findings |
 | 2 | Data sources | 4 | Lecture source (FRED macro) + new source (Binance USDⓈ-M, Fear & Greed); 20+ new features with descriptions; >1M records (150+ symbols × hourly × 1yr+) |
 | 3 | Transformations + EDA | 3 | Unified dataframe, explicit `TO_PREDICT` / `NUMERIC` / `DUMMIES` sets; 5+ derived feature groups; correlation + IC analysis, per-symbol breakdown |
-| 4 | Modeling | 5 | RandomForest (lecture model) + Ridge (second) + XGBoost (new); Optuna tuning; probability-threshold decision rules |
+| 4 | Modeling | 5 | DecisionTree + RandomForest + LogisticRegression (all lecture models) + a regression study on the continuous target; Optuna tuning; probability-threshold decision rules |
 | 5 | Trading simulation | 8 | sim0 rule baseline, sim1 vector long-only, sim2 vector long-short, sim3 exact iterative with risk management; benchmarks + CAGR/Sharpe/MaxDD/rolling returns; per-ticker and per-month error analysis |
 | 6 | Automation | 5 | Notebooks exported to `.py`, one orchestration notebook; `uv` deps; GitHub Actions cron; file-mode vs download-mode; incremental loading to HF Datasets |
 | 7 | Bonus | 7 | Modular code, Binance testnet orders, Telegram monitoring, Docker, cloud deploy, subjective |
@@ -69,9 +69,11 @@ This section is normative.
 
 ### 3.1 Data splits
 
-```
-2021-01 ──────────────────────── 2025-10 │ 2025-11 ── 2026-10
-              dev period                   │   sealed holdout
+```mermaid
+flowchart LR
+    dev["dev period<br/>2021-01 → 2025-10<br/>purged walk-forward, iterate freely"]
+    holdout["sealed holdout<br/>2025-11 → 2026-10<br/>evaluated once"]
+    dev -->|"freeze all choices"| holdout
 ```
 
 - **Dev period (2021-01 → 2025-10):** purged walk-forward, monthly retrain (§6). Iterate here.
@@ -231,13 +233,29 @@ stable at ~20% positives by construction. Last 24 rows per symbol are dropped.
 
 ## 5. Modeling
 
-| Model | Role | Notes |
-|---|---|---|
-| Ridge | Baseline / sanity floor | Standardized numerics, one-hot dummies; establishes the IC a linear model can reach |
-| RandomForest | Lecture requirement | `n_estimators` 300–800, `max_depth` tuned, `min_samples_leaf` tuned |
-| XGBoost | "New model" | `hist` tree method, early stopping on the validation fold |
+| Model | Role | Target | Notes |
+|---|---|---|---|
+| Ridge | Regression floor / "Regression" rubric point | reg | Standardized numerics; `alpha` tuned; the linear IC floor |
+| DecisionTree | Lecture model (module 3) | reg + clf | `max_depth` sweep, as taught; plotted tree + feature importance |
+| RandomForest | Lecture model (module 4) | reg + clf | `n_estimators` / `max_depth` sweep, as taught |
+| LogisticRegression | Lecture model (module 4) | clf | Scaled features; linear probability baseline for the threshold rules |
 
-Each model is trained twice: once for `TO_PREDICT_REG`, once for `TO_PREDICT_CLF`.
+The tree models are trained in both forms: `DecisionTreeRegressor` / `RandomForestRegressor` on the
+continuous target and the `Classifier` variants on top-quintile membership. Same algorithm, different
+criterion — this is how the regression study is run without introducing a model the course never
+touched.
+
+**Not used, and why:**
+
+| Model | Why not |
+|---|---|
+| XGBoost | Reserved for the ML Zoomcamp project; the new-model point is already covered by Regression |
+| Keras NN (module 4) | Taught, but days of tuning for a point already earned |
+| ARIMA (module 3) | Univariate per symbol; cannot rank 200 symbols cross-sectionally |
+
+**Regression vs classification study (P4-07).** Same folds, features and universe. Compare rank IC
+(regression) against AUC + precision@top-decile (classification), then decide which drives sim3
+sizing. The finding is recorded in `experiments.md` and summarised here.
 
 **Tuning:** Optuna, 30–50 trials per model on the earliest validation window, objective =
 mean rank IC (regression) / AUC (classification). Tuning is done **once** on a dev window,
@@ -344,6 +362,7 @@ crypto-cross-pred/
 ├── README.md                   # problem + value
 ├── AGENTS.md                   # working rules (root, so agents find it)
 ├── .gitignore                  # includes project-criteria.md
+├── .gitattributes              # LF normalisation
 ├── experiments.md              # append-only run log (§3.3)
 ├── docs/
 │   ├── SPEC.md                 # what the system must do (this file)
@@ -354,7 +373,6 @@ crypto-cross-pred/
 ├── docker-compose.yml
 ├── .env.example
 ├── config/config.yaml
-├── .github/workflows/pipeline.yml, ci.yml
 ├── src/crypto_cross_pred/
 │   ├── config.py
 │   ├── io/          binance.py, fred.py, huggingface.py, storage.py
@@ -368,6 +386,11 @@ crypto-cross-pred/
 ├── tests/
 └── data/            # gitignored: raw/ interim/ processed/ artifacts/
 ```
+
+**Workflows live at the repository root**, not here: `sma-cohort-2026/.github/workflows/ci.yml`
+and `pipeline.yml`. GitHub Actions only discovers workflows at the repo root, and this
+repository is a monorepo of homework plus this project. Every job sets
+`working-directory: crypto-cross-pred`.
 
 ### 9.1 Adapter boundary
 

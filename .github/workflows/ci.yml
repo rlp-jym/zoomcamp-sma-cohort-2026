@@ -1,0 +1,53 @@
+name: ci
+
+on:
+  push:
+    branches: [develop, main]
+    paths:
+      - 'crypto-cross-pred/**'
+      - '.github/workflows/**'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'crypto-cross-pred/**'
+      - '.github/workflows/**'
+  workflow_dispatch:
+
+defaults:
+  run:
+    working-directory: crypto-cross-pred
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # The project is docs-only until P0-02 lands. Keep CI green as a no-op
+      # rather than showing a permanent red X on main.
+      - name: Is the project scaffolded?
+        id: scaffold
+        run: |
+          if [ -f pyproject.toml ]; then
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+            echo "No pyproject.toml yet — skipping checks (see P0-02)."
+          fi
+
+      - uses: astral-sh/setup-uv@v6
+        if: steps.scaffold.outputs.ready == 'true'
+        with:
+          enable-cache: true
+
+      - name: Install
+        if: steps.scaffold.outputs.ready == 'true'
+        run: uv sync --all-groups
+
+      - name: Lint
+        if: steps.scaffold.outputs.ready == 'true'
+        run: uv run ruff check .
+
+      - name: Test
+        if: steps.scaffold.outputs.ready == 'true'
+        run: uv run pytest -q
