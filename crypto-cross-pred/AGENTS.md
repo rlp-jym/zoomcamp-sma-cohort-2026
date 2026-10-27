@@ -157,10 +157,47 @@ A task is done when:
 - [ ] Logs/report include a sanity metric (row counts, date range, NaN rate)
 - [ ] Relevant doc updated (docs/SPEC.md for requirements, docs/DECISIONS.md for rationale,
       docs/TASKS.md for status, `experiments.md` for the run, README for usage)
+- [ ] Task marked complete in `docs/TASKS.md` with its short commit hash
 
 ---
 
-## 9. When unsure
+## 9. Git workflow
+
+**Branches**
+
+1. **Work on `develop`.** Commit frequently and push to `develop` as work progresses.
+2. **Never push to `main` unless explicitly asked.** `main` only receives merges from
+   `develop`, and only on request. Never commit directly to `main`.
+3. **Never amend or force-push a pushed commit.** Fix forward with a new commit.
+
+**Commits**
+
+4. **Message format:** `<TASK-ID>: <imperative summary>` — e.g. `P1-03: add bulk klines
+   backfill`. Batch a coherent set when it helps: `P2-03,P2-04: add feature families`.
+5. **One task or one coherent batch per commit.** Do not mix a refactor with a feature.
+6. **Record the hash in a follow-up commit.** The commit that completes a task cannot
+   contain its own hash. The next commit updates the Commit column in `docs/TASKS.md`
+   with the short hash (7 chars). Several commits: `a1b2c3d, e4f5g6h`.
+
+**Verification — keep it cheap**
+
+7. **Every commit:** check `git status` — no data files, no `.env`, no secrets.
+8. **Touching feature or label code:** run `uv run pytest -q tests/test_no_leakage.py`.
+9. **Do not block commits on the full suite.** CI is the gate for `main`, not for
+   `develop`. Push and let CI verify.
+
+**Completion**
+
+10. **Mark a task complete only after its "Done when" is verified**, updating the status
+    and the Commit column together.
+11. **Tag the submission:** `v1.0-submission` on `main` when the project is handed in.
+
+**Not doing:** conventional-commit prefixes (the task ID already does that), a branch per
+task, signed commits.
+
+---
+
+## 10. When unsure
 
 Ask before: changing the schema, changing the validation scheme, adding a dependency that
 isn't free, deleting existing work, or expanding scope beyond docs/SPEC.md §12.

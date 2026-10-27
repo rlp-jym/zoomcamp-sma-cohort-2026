@@ -344,6 +344,7 @@ crypto-cross-pred/
 ├── README.md                   # problem + value
 ├── AGENTS.md                   # working rules (root, so agents find it)
 ├── .gitignore                  # includes project-criteria.md
+├── .gitattributes              # LF normalisation
 ├── experiments.md              # append-only run log (§3.3)
 ├── docs/
 │   ├── SPEC.md                 # what the system must do (this file)
@@ -354,7 +355,6 @@ crypto-cross-pred/
 ├── docker-compose.yml
 ├── .env.example
 ├── config/config.yaml
-├── .github/workflows/pipeline.yml, ci.yml
 ├── src/crypto_cross_pred/
 │   ├── config.py
 │   ├── io/          binance.py, fred.py, huggingface.py, storage.py
@@ -368,6 +368,11 @@ crypto-cross-pred/
 ├── tests/
 └── data/            # gitignored: raw/ interim/ processed/ artifacts/
 ```
+
+**Workflows live at the repository root**, not here: `sma-cohort-2026/.github/workflows/ci.yml`
+and `pipeline.yml`. GitHub Actions only discovers workflows at the repo root, and this
+repository is a monorepo of homework plus this project. Every job sets
+`working-directory: crypto-cross-pred`.
 
 ### 9.1 Adapter boundary
 
