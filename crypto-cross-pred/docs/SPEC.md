@@ -69,9 +69,11 @@ This section is normative.
 
 ### 3.1 Data splits
 
-```
-2021-01 ──────────────────────── 2025-10 │ 2025-11 ── 2026-10
-              dev period                   │   sealed holdout
+```mermaid
+flowchart LR
+    dev["dev period<br/>2021-01 → 2025-10<br/>purged walk-forward, iterate freely"]
+    holdout["sealed holdout<br/>2025-11 → 2026-10<br/>evaluated once"]
+    dev -->|"freeze all choices"| holdout
 ```
 
 - **Dev period (2021-01 → 2025-10):** purged walk-forward, monthly retrain (§6). Iterate here.

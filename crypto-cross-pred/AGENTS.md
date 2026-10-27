@@ -109,6 +109,8 @@ These are load-bearing. Changing them breaks notebooks, the app, and CI.
 - Log with `logging`, not `print`, in `src/`. `tqdm` for long loops.
 - Fail loudly on schema violations (missing columns, duplicate `(symbol, ts)` keys).
 - Keep `src/` free of notebook-only imports (`matplotlib` inline magic, etc.).
+- **Diagrams in docs are Mermaid** (```` ```mermaid ```` fenced blocks), not ASCII art —
+  they render on GitHub and survive edits. Directory trees stay as plain code blocks.
 
 ---
 

@@ -110,12 +110,15 @@ were never actually evaluated. The power check (TASKS P3-08) exists to keep thes
 
 ## 6. Why the template boundary is exactly one adapter
 
-```
-        market-specific            │        market-agnostic
-  ┌──────────────────────────┐    │   ┌────────────────────────────────────┐
-  │  data adapter            │    │   │ features · labels · validation     │
-  │  source → unified schema │ ──▶│   │ models · simulation · reporting    │
-  └──────────────────────────┘    │   └────────────────────────────────────┘
+```mermaid
+flowchart LR
+    subgraph specific["market-specific"]
+        adapter["data adapter<br/>source → unified schema"]
+    end
+    subgraph agnostic["market-agnostic"]
+        core["features · labels · validation<br/>models · simulation · reporting"]
+    end
+    adapter --> core
 ```
 
 Everything downstream of the unified schema reads only that schema. That is what makes
