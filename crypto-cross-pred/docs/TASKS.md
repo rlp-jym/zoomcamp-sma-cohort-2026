@@ -21,12 +21,12 @@ Each task lists **Done when** = the acceptance test.
 | P0-04 | `config/config.yaml` + `src/crypto_cross_pred/config.py` (pydantic-settings): universe filters, date range, horizon, thresholds, cost bps, paths, HF repo | `uv run python -m crypto_cross_pred.cli config` prints resolved config | |
 | P0-05 | `src/crypto_cross_pred/cli.py` with subcommands `download, transform, features, train, predict, simulate, notify, all` (stubs raising `NotImplementedError`) | `--help` lists all commands | |
 | P0-06 | `src/crypto_cross_pred/contracts.py`: unified schema constant + `TO_PREDICT_REG`, `TO_PREDICT_CLF`, `NUMERIC`, `DUMMIES`, `CATEGORICAL` | Imported successfully; single source of truth | |
-| P0-07 | `.gitignore` for `data/`, `.env`, `*.parquet`, `mlruns/`, `.venv/`, **`project-criteria.md`**; `.env.example` with empty secrets | `git status` clean after a pipeline run; `project-criteria.md` untracked | |
+| P0-07 | `.gitignore` for `data/`, `.env`, `*.parquet`, `mlruns/`, `.venv/`, **`project-criteria.md`**; `.env.example` with empty secrets | `git status` clean after a pipeline run; `project-criteria.md` untracked | 25a6c7d |
 | P0-08 | `tests/test_contracts.py` (schema completeness), `tests/test_config.py` | `uv run pytest -q` passes | |
-| P0-09 | Ruff config; `ci.yml` at the **repo root** `.github/workflows/` (lint + tests on push to develop/main, `paths: crypto-cross-pred/**`) | CI green on first push | |
+| P0-09 | Ruff config; `ci.yml` at the **repo root** `.github/workflows/` (lint + tests on push to develop/main, `paths: crypto-cross-pred/**`) | CI green on first push | 05dc9ae |
 | P0-10 | `experiments.md`: pre-registered hypothesis, success criteria, plausible metric ranges, empty run table (SPEC §3.5) | File committed **before** the first modelling run | |
-| P0-11 | `DECISIONS.md` seeded with D-01…D-35 | Every open decision lists the task it blocks | |
-| P0-12 | `.gitattributes`: `* text=auto`, LF for md/py/yml/toml/ipynb | No CRLF churn warnings on commit | |
+| P0-11 | `DECISIONS.md` seeded with D-01…D-35 | Every open decision lists the task it blocks | 25a6c7d, 05dc9ae |
+| P0-12 | `.gitattributes`: `* text=auto`, LF for md/py/yml/toml/ipynb | No CRLF churn warnings on commit | 05dc9ae |
 | P0-13 | Branch protection on `main`: require the `ci` check (GitHub UI) | Direct pushes to `main` blocked; `develop` stays unprotected | |
 
 **Rubric:** 6.2 (deps), 7.1 (modular code)
