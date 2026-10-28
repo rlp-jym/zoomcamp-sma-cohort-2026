@@ -82,9 +82,13 @@ Streamlit app: `uv run streamlit run app/streamlit_app.py`
 | Settings / paths / thresholds | `src/crypto_cross_pred/config.py` + `config/config.yaml` |
 | HTTP clients, retries, pagination | `src/crypto_cross_pred/io/binance.py` |
 | FRED macro series (1-day lag) | `src/crypto_cross_pred/io/fred.py` |
+| Crypto Fear & Greed | `src/crypto_cross_pred/io/fear_greed.py` |
 | HF Datasets read/write | `src/crypto_cross_pred/io/huggingface.py` |
 | Local parquet cache helpers | `src/crypto_cross_pred/io/storage.py` |
+| Universe selection | `src/crypto_cross_pred/data/universe.py` |
+| Archive backfill + REST top-up | `src/crypto_cross_pred/data/download.py` |
 | Raw → unified schema | `src/crypto_cross_pred/data/transform.py` |
+| Data quality report | `src/crypto_cross_pred/report/quality.py` |
 | Feature engineering | `src/crypto_cross_pred/data/features.py` |
 | Labels / targets | `src/crypto_cross_pred/data/labels.py` |
 | Purged walk-forward | `src/crypto_cross_pred/models/validate.py` |
