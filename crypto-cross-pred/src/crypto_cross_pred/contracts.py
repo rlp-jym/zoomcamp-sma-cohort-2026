@@ -38,7 +38,7 @@ SCHEMA: dict[str, str] = {
     "dgs10": "10Y Treasury yield, percent (lagged 1 day)",
     "dff": "effective fed funds rate, percent (lagged 1 day)",
     "dxy": "broad dollar index (lagged 1 day)",
-    "hy_oas": "ICE BofA US high-yield option-adjusted spread, percent (lagged 1 day)",
+    "credit_spread": "Moody's Baa yield minus 10Y Treasury, percent (lagged 1 day)",
 }
 
 SCHEMA_COLUMNS: tuple[str, ...] = tuple(SCHEMA)
@@ -121,9 +121,9 @@ MACRO_FEATURES: tuple[str, ...] = (
     "yield_change_5d",
     "term_spread",
     "dxy_ret_5d",
-    "hy_oas_level",
-    "hy_oas_z_30d",
-    "hy_oas_change_5d",
+    "credit_spread_level",
+    "credit_spread_z_30d",
+    "credit_spread_change_5d",
 )
 
 DUMMIES: tuple[str, ...] = (
