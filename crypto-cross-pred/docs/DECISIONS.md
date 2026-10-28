@@ -37,6 +37,7 @@ here.
 | D-34 | Rule-based baseline | **`sim0`**: funding-carry rule, no model — long the 20 most-negative funding rates, short the 20 most-positive (extends D-10) | The course explicitly asks whether ML beats simple hand-written rules. A baseline gives the model a floor to beat and turns "ML adds value" into a testable claim rather than an assumption. Built before sim1/sim2 so all four share one cost model. | active |
 | D-35 | Development method | **AI coding agents used deliberately**, transferring the practice from the AI Dev Tools Zoomcamp: spec first, decision record, task decomposition, explicit agent rules | No rule prohibits it. The value is in the process, not the speed. Domain choices, hypotheses, thresholds and verdicts stay with the author; disclosure is in the README. | active |
 | D-36 | Model set | **Lecture models only + one regression study** (supersedes D-09): DecisionTree, RandomForest, LogisticRegression — plus Ridge on the continuous target. No XGBoost, no neural net, no ARIMA | Simplicity is the point: every model is explainable in one sentence, and the course never touched XGBoost. The bolded rubric point needs a lecture model (RandomForest); "more than one lecture model" needs two (add DecisionTree); "new models: … Regression" is earned by the regression study, which the course does not do anywhere. Models beyond the course are reserved for the ML Zoomcamp project rather than duplicated here. | active |
+| D-37 | Build order | **Build the progress surface before the data layer** (P0-15…P0-18): artifact schemas, `io/artifacts.py`, `cli status`, then the Streamlit dashboard | The app can only read artifacts, so building it first forces the output contracts to be written before four phases of code depend on them. It also makes every later phase visible the moment it produces a file, and the dashboard is required anyway (rubric 7.3). Cost: ~2h with no rubric points yet. Constraint: the app is read-only and never computes a signal. | active |
 
 ---
 
@@ -236,6 +237,7 @@ Chronological record of what changed and why. This is the part that shows the pr
 | 7 | Docs at the project root | Docs in `docs/`; `AGENTS.md` stays at root | Tidiness without breaking agent discovery |
 | 8 | Naming: `project_1`, `crypto_ls` | `crypto-cross-pred`, `crypto_cross_pred` | Consistency across course projects |
 | 9 | Ridge → RandomForest → XGBoost | Lecture models only (DecisionTree, RandomForest, LogisticRegression) + a regression study | Reading the actual course notebooks showed XGBoost is never taught; the rubric's new-model point is better earned by the regression study, and the exotic models are reserved for the ML Zoomcamp project |
+| 10 | Build order: data → features → models → sim → app | Artifact contracts and the dashboard come before the data layer | An app that reads artifacts forces the output schemas to be defined first; it also makes each phase visible as it lands, and the dashboard is required anyway |
 
 Each pivot is a decision, not a correction of an error: the earlier version was reasonable
 given what was known at the time.

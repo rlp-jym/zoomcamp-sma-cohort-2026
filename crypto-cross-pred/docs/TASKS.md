@@ -29,8 +29,12 @@ Each task lists **Done when** = the acceptance test.
 | P0-12 | `.gitattributes`: `* text=auto`, LF for md/py/yml/toml/ipynb | No CRLF churn warnings on commit | 05dc9ae |
 | P0-13 | Branch protection on `main`: require the `ci` check (GitHub UI) | Direct pushes to `main` blocked; `develop` stays unprotected | n/a (repo setting) |
 | P0-14 | `notebooks/` directory + kernel, and one export path (`nbconvert`) reused by P3-07, P4-12, P5-10, P6-06 | A one-cell notebook exports to `.py` and the script runs headless | 628c163 |
+| P0-15 | `SPEC` §8.1 artifact schemas + `contracts.py` constants (`PREDICTION_COLUMNS`, `SIM_EQUITY_COLUMNS`, `WEIGHT_COLUMNS`); reconcile `p_top` / `pred_reg` naming | Pipeline and app agree on column names before either is written | |
+| P0-16 | `io/artifacts.py`: discovery, `summarize_dataset`, `load_predictions`, `load_sim_curves`; every loader tolerates missing files | Tests cover empty directories and latest-file selection | |
+| P0-17 | `cli status`: artifact availability table (files, rows, latest file) | Prints a table on an empty project without raising | |
+| P0-18 | `app/streamlit_app.py` v0: status, dataset, predictions, simulation panels with empty states; **read-only** | `AppTest` renders with no artifacts and no exception | |
 
-**Rubric:** 6.2 (deps), 7.1 (modular code)
+**Rubric:** 6.2 (deps), 7.1 (modular code), 7.3 (dashboard — partial, deployment completes it)
 
 ---
 
@@ -141,7 +145,7 @@ Each task lists **Done when** = the acceptance test.
 | P6-01 | `cli.py all` orchestrates download → transform → features → train → predict → simulate → notify | Single command reproduces everything | |
 | P6-02 | `--source hf` regime: read prebuilt snapshot, skip download/transform | Completes without network writes | |
 | P6-03 | `--source binance` regime: incremental download to latest bar | Second run is fast (incremental) | |
-| P6-04 | `pipeline.yml` at the **repo root** `.github/workflows/`: daily 00:15 UTC cron + `workflow_dispatch`, `working-directory: crypto-cross-pred` | Manual trigger produces artifacts | |
+| P6-04 | `pipeline.yml` at the **repo root** `.github/workflows/`: **re-enable the commented-out `schedule:` block** (disabled until `cli all` works), keep `workflow_dispatch`, `working-directory: crypto-cross-pred` | Manual trigger produces artifacts; the nightly run is green | |
 | P6-05 | Artifact publishing from CI (HF upload) + run summary in Actions UI | Latest prediction file visible on HF after run | |
 | P6-06 | Orchestration notebook (`notebooks/00_pipeline.ipynb`) calling `src/` functions | Demonstrates end-to-end, exports to script | |
 | P6-07 | `README.md` install + run instructions (uv, env vars, both regimes, cron) | A fresh clone can follow it | |
@@ -156,7 +160,7 @@ Each task lists **Done when** = the acceptance test.
 |---|---|---|---|
 | P7-01 | `Dockerfile` (multi-stage, uv-based, non-root) | `docker build` + `docker run ... cli --help` works | |
 | P7-02 | `docker-compose.yml` (pipeline service + app service) | `docker compose up` serves the app | |
-| P7-03 | `app/streamlit_app.py`: today's picks, equity curves vs benchmarks, metrics table, model health | Loads from HF snapshot; no local data needed | |
+| P7-03 | Extend the dashboard (P0-18): benchmark comparison, model-health panel, HF-snapshot source instead of local files | Loads from HF snapshot; no local data needed | |
 | P7-04 | Deploy to Streamlit Community Cloud (public app); app-root dependencies resolve there (app-local `requirements.txt` or pyproject) | Public URL renders with real data | |
 | P7-05 | `.dockerignore`, image size sane (<1.5GB) | Build time recorded | |
 
