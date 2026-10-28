@@ -18,7 +18,7 @@ import threading
 import zipfile
 from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass
-from datetime import UTC, date, datetime, timedelta
+from datetime import UTC, date, datetime, time, timedelta
 from pathlib import Path
 from typing import Any
 
@@ -351,14 +351,23 @@ def _drop_incomplete_bars(frame: pd.DataFrame, *, now: datetime) -> pd.DataFrame
     return frame.loc[complete].reset_index(drop=True)
 
 
+def clamp_end(now: datetime, data_end: date | None) -> datetime:
+    """Never collect past the sealed holdout boundary."""
+    if data_end is None:
+        return now
+    cap = datetime.combine(data_end, time.max, tzinfo=UTC)
+    return min(now, cap)
+
+
 def incremental_symbol(
     symbol: str,
     *,
     raw_dir: Path,
     now: datetime | None = None,
+    data_end: date | None = None,
 ) -> dict[str, int]:
     """Top up klines and funding from REST, starting after the last stored bar."""
-    now = now or datetime.now(UTC)
+    now = clamp_end(now or datetime.now(UTC), data_end)
     added: dict[str, int] = {}
 
     kline_path = storage.partition_path(raw_dir / "binance" / "klines", symbol)
@@ -398,12 +407,13 @@ def incremental(
     *,
     raw_dir: Path,
     workers: int = 4,
+    data_end: date | None = None,
 ) -> list[tuple[str, dict[str, int]]]:
     """Top up every symbol from REST. A second run should add almost nothing."""
 
     def run(symbol: str) -> tuple[str, dict[str, int]]:
         try:
-            added = incremental_symbol(symbol, raw_dir=raw_dir)
+            added = incremental_symbol(symbol, raw_dir=raw_dir, data_end=data_end)
             logger.info("%s incremental: %s", symbol, added)
             return symbol, added
         except Exception as error:  # noqa: BLE001 - one symbol must not stop the batch

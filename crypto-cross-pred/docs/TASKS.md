@@ -52,7 +52,8 @@ Each task lists **Done when** = the acceptance test.
 | P1-08 | `io/huggingface.py`: upload/download dataset snapshots, public read | Snapshot uploads; fresh clone can download it | fde39be |
 | P1-09 | Incremental mode: fetch only `max(ts)+1h → now` per symbol, upsert | Second run downloads a handful of bars, not full history | 7e8d131 |
 | P1-10 | Data quality report: row counts, date coverage per symbol, NaN rates, gaps | Report printed + saved; excluded symbols listed with reasons | 34c3b4b |
-| P1-11 | `io/fred.py`: `VIXCLS`, `DGS10`, `DFF`, `DTWEXBGS`, `BAMLH0A0HYM2` → parquet, weekday-only, explicit 1-day lag rule | Series align to UTC hourly with no same-day value | 418cc91 |
+| P1-11 | `io/fred.py`: `VIXCLS`, `DGS10`, `DFF`, `DTWEXBGS`, `BAA10Y` → parquet, weekday-only, explicit 1-day lag rule | Series align to UTC hourly with no same-day value | 418cc91 |
+| P1-12 | **Final top-up on 2026-11-07**: klines, funding and metrics for 2026-10-01 → 2026-10-31, then freeze. The October monthly archive is published by then | Data ends exactly at `data_end`; quality report shows no gap after 2026-09-30 | |
 
 **Rubric:** 2.1, 2.3, 2.4, 6.4, 6.5
 

@@ -58,3 +58,8 @@ def test_config_file_can_be_overridden(monkeypatch: pytest.MonkeyPatch, tmp_path
     custom = tmp_path / "custom.yaml"
     monkeypatch.setenv("CRYPTO_CONFIG_FILE", str(custom))
     assert config.config_file() == custom
+
+
+def test_data_end_matches_the_holdout_end() -> None:
+    settings = config.get_settings()
+    assert settings.data_end == settings.dates.holdout_end

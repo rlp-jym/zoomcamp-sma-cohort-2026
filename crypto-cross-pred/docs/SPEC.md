@@ -181,6 +181,11 @@ and `open_interest` / `ls_ratio_*` every 5 minutes in the archive. Both are alig
 hour. Metrics keep the **last snapshot inside each hour** (`:55`), so they sit 5 minutes
 behind the bar close — consistently, for every symbol and every hour (D-38).
 
+**Freeze.** Collection stops at `data_end` (2026-10-31, the end of the sealed holdout).
+A final top-up closes October once its monthly archive is published, after which the
+dataset is frozen. Any data after that date is reporting-only and never evaluation data
+(§3.6).
+
 ### 4.3 Feature families (60+ features)
 
 **Price / volume (per symbol)**

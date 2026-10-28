@@ -86,7 +86,12 @@ def _cmd_download(args: argparse.Namespace) -> int:
 
     if args.incremental:
         print(f"incremental: {len(symbols)} symbols")
-        results = download_module.incremental(symbols, raw_dir=paths.raw_dir, workers=args.workers)
+        results = download_module.incremental(
+            symbols,
+            raw_dir=paths.raw_dir,
+            workers=args.workers,
+            data_end=settings.data_end,
+        )
         added_klines = sum(item["klines"] for _, item in results)
         added_funding = sum(item["funding"] for _, item in results)
         print()
