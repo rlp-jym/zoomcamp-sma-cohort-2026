@@ -62,7 +62,7 @@ here.
 
 | ID | Question | Recommendation | Blocks | Status |
 |---|---|---|---|---|
-| D-18 | Standalone `crypto-cross-pred/pyproject.toml` vs. root `uv` workspace member? | Standalone — Docker/CI target it cleanly, homework deps stay out of the image | P0-02 | open |
+| D-18 | Standalone `crypto-cross-pred/pyproject.toml` vs. root `uv` workspace member? | Standalone — Docker/CI target it cleanly, homework deps stay out of the image | P0-02 | **decided: standalone** (P0-02, `uv.lock` committed) |
 | D-19 | Telegram: raw `requests` vs. `python-telegram-bot`? | Raw `requests` — ~30 lines, no polling, no extra dependency | P8-01 | open |
 | D-20 | Symbol encoding: target-encode vs. top-N one-hot? | Target-encode inside the fold; keep top-20 symbols as dummies for interpretability | P2-07 | open |
 | D-21 | Tuning inside or outside walk-forward? | Outside, on a dev window, params frozen for all folds — documented tradeoff | P4-06 | open |
