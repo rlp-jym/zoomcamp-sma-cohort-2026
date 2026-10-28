@@ -29,10 +29,10 @@ Each task lists **Done when** = the acceptance test.
 | P0-12 | `.gitattributes`: `* text=auto`, LF for md/py/yml/toml/ipynb | No CRLF churn warnings on commit | 05dc9ae |
 | P0-13 | Branch protection on `main`: require the `ci` check (GitHub UI) | Direct pushes to `main` blocked; `develop` stays unprotected | n/a (repo setting) |
 | P0-14 | `notebooks/` directory + kernel, and one export path (`nbconvert`) reused by P3-07, P4-12, P5-10, P6-06 | A one-cell notebook exports to `.py` and the script runs headless | 628c163 |
-| P0-15 | `SPEC` §8.1 artifact schemas + `contracts.py` constants (`PREDICTION_COLUMNS`, `SIM_EQUITY_COLUMNS`, `WEIGHT_COLUMNS`); reconcile `p_top` / `pred_reg` naming | Pipeline and app agree on column names before either is written | |
-| P0-16 | `io/artifacts.py`: discovery, `summarize_dataset`, `load_predictions`, `load_sim_curves`; every loader tolerates missing files | Tests cover empty directories and latest-file selection | |
-| P0-17 | `cli status`: artifact availability table (files, rows, latest file) | Prints a table on an empty project without raising | |
-| P0-18 | `app/streamlit_app.py` v0: status, dataset, predictions, simulation panels with empty states; **read-only** | `AppTest` renders with no artifacts and no exception | |
+| P0-15 | `SPEC` §8.1 artifact schemas + `contracts.py` constants (`PREDICTION_COLUMNS`, `SIM_EQUITY_COLUMNS`, `WEIGHT_COLUMNS`); reconcile `p_top` / `pred_reg` naming | Pipeline and app agree on column names before either is written | 1dad72b |
+| P0-16 | `io/artifacts.py`: discovery, `summarize_dataset`, `load_predictions`, `load_sim_curves`; every loader tolerates missing files | Tests cover empty directories and latest-file selection | 828546b |
+| P0-17 | `cli status`: artifact availability table (files, rows, latest file) | Prints a table on an empty project without raising | c64f38b |
+| P0-18 | `app/streamlit_app.py` v0: status, dataset, predictions, simulation panels with empty states; **read-only** | `AppTest` renders with no artifacts and no exception | a161570, 6494466 |
 
 **Rubric:** 6.2 (deps), 7.1 (modular code), 7.3 (dashboard — partial, deployment completes it)
 
