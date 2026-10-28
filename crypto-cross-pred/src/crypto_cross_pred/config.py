@@ -129,6 +129,14 @@ class Settings(BaseSettings):
     hf_token: SecretStr = SecretStr("")
     hf_dataset_repo: str = ""
 
+    @property
+    def data_end(self) -> date:
+        """Hard cap on data collection: the study ends with the sealed holdout.
+
+        Anything after this date is reporting data, never evaluation data (SPEC §3.6).
+        """
+        return self.dates.holdout_end
+
     @classmethod
     def settings_customise_sources(
         cls,

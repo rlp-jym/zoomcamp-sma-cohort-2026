@@ -1,6 +1,6 @@
 """Archive parsing and URL construction, on synthetic payloads."""
 
-from datetime import date
+from datetime import UTC, date, datetime
 
 import pandas as pd
 
@@ -129,3 +129,19 @@ def test_empty_payloads_return_empty_frames() -> None:
     assert download.parse_klines_csv([]).empty
     assert download.parse_funding_csv([]).empty
     assert download.parse_metrics_csv([]).empty
+
+
+def test_clamp_end_never_passes_the_study_boundary() -> None:
+    boundary = date(2026, 10, 31)
+
+    assert download.clamp_end(datetime(2026, 12, 15, tzinfo=UTC), boundary) == datetime(
+        2026, 10, 31, 23, 59, 59, 999999, tzinfo=UTC
+    )
+    assert download.clamp_end(datetime(2026, 10, 20, tzinfo=UTC), boundary) == datetime(
+        2026, 10, 20, tzinfo=UTC
+    )
+
+
+def test_clamp_end_without_a_boundary_is_a_noop() -> None:
+    now = datetime(2026, 12, 15, tzinfo=UTC)
+    assert download.clamp_end(now, None) is now

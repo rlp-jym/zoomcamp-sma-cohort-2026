@@ -42,17 +42,18 @@ Each task lists **Done when** = the acceptance test.
 
 | ID | Task | Done when | Commit |
 |---|---|---|---|
-| P1-01 | `io/binance.py`: exchangeInfo loader → filter to `PERPETUAL`, `USDT` quote, `TRADING` status | Returns symbol list with `onboardDate` | |
-| P1-02 | Universe selection: 150–250 symbols by liquidity (quote volume) + min history ≥18 months; persist `config/universe.json` | Universe file has 150–250 symbols, each with history stats | |
-| P1-03 | Bulk backfill via `data.binance.vision` monthly ZIPs (klines, funding, OI) | One symbol backfilled 2021→now without REST pagination | |
-| P1-04 | REST downloader with 1,500-bar pagination, retry/backoff, rate-limit awareness | Paginates a full year for one symbol; no duplicate/missing hours | |
-| P1-05 | Liquidation + long/short ratio + taker volume endpoints | Each dataset lands in `raw/` | |
-| P1-06 | Fear & Greed loader (alternative.me), daily → parquet | 2018→now available | |
-| P1-07 | `io/storage.py`: atomic parquet write, partition by symbol, read-max-ts helper | Idempotent rewrite; corrupt write impossible on crash | |
-| P1-08 | `io/huggingface.py`: upload/download dataset snapshots, public read | Snapshot uploads; fresh clone can download it | |
-| P1-09 | Incremental mode: fetch only `max(ts)+1h → now` per symbol, upsert | Second run downloads a handful of bars, not full history | |
-| P1-10 | Data quality report: row counts, date coverage per symbol, NaN rates, gaps | Report printed + saved; excluded symbols listed with reasons | |
-| P1-11 | `io/fred.py`: `VIXCLS`, `DGS10`, `DFF`, `DTWEXBGS`, `BAMLH0A0HYM2` → parquet, weekday-only, explicit 1-day lag rule | Series align to UTC hourly with no same-day value | |
+| P1-01 | `io/binance.py`: exchangeInfo loader → filter to `PERPETUAL`, `USDT` quote, `TRADING` status | Returns symbol list with `onboardDate` | f399288 |
+| P1-02 | Universe selection: 150–250 symbols by liquidity (quote volume) + min history ≥18 months; persist `config/universe.json` | Universe file has 150–250 symbols, each with history stats | f399288 |
+| P1-03 | Bulk backfill via `data.binance.vision` monthly ZIPs (klines, funding, OI) | One symbol backfilled 2021→now without REST pagination | 9c7abbd, 9e55173 |
+| P1-04 | REST downloader with 1,500-bar pagination, retry/backoff, rate-limit awareness | Paginates a full year for one symbol; no duplicate/missing hours | 9c7abbd |
+| P1-05 | Liquidation + long/short ratio + taker volume endpoints | Each dataset lands in `raw/` | acba47e, 9c7abbd, a9c2c52 |
+| P1-06 | Fear & Greed loader (alternative.me), daily → parquet | 2018→now available | 418cc91 |
+| P1-07 | `io/storage.py`: atomic parquet write, partition by symbol, read-max-ts helper | Idempotent rewrite; corrupt write impossible on crash | d75c255 |
+| P1-08 | `io/huggingface.py`: upload/download dataset snapshots, public read | Snapshot uploads; fresh clone can download it | fde39be |
+| P1-09 | Incremental mode: fetch only `max(ts)+1h → now` per symbol, upsert | Second run downloads a handful of bars, not full history | 7e8d131 |
+| P1-10 | Data quality report: row counts, date coverage per symbol, NaN rates, gaps | Report printed + saved; excluded symbols listed with reasons | 34c3b4b |
+| P1-11 | `io/fred.py`: `VIXCLS`, `DGS10`, `DFF`, `DTWEXBGS`, `BAA10Y` → parquet, weekday-only, explicit 1-day lag rule | Series align to UTC hourly with no same-day value | 418cc91 |
+| P1-12 | **Final top-up on 2026-11-07**: klines, funding and metrics for 2026-10-01 → 2026-10-31, then freeze. The October monthly archive is published by then | Data ends exactly at `data_end`; quality report shows no gap after 2026-09-30 | |
 
 **Rubric:** 2.1, 2.3, 2.4, 6.4, 6.5
 

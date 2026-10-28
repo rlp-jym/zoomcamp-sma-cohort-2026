@@ -147,7 +147,7 @@ capital attached (D-29).
 | Binance USDⓈ-M REST (`fapi.binance.com`) | klines, funding rate, open interest, long/short ratio, taker volume, liquidations | Free, no key for market data | 1,500-bar pagination limit; some endpoints need key |
 | Binance public data dumps (`data.binance.vision`) | Monthly ZIP archives of klines / funding / OI | Free, no key, no geo-block | Primary backfill path; much faster than API pagination |
 | alternative.me | Crypto Fear & Greed index | Free, no key | Daily, forward-fill to hourly |
-| FRED (`fred.stlouisfed.org`) | `VIXCLS` (VIX), `DGS10` (10Y yield), `DFF` (policy rate), `DTWEXBGS` (dollar), `BAMLH0A0HYM2` (high-yield OAS) | Free, no key via `pandas-datareader` | Daily, weekday-only; forward-fill with a **1-day lag** |
+| FRED (`fred.stlouisfed.org`) | `VIXCLS` (VIX), `DGS10` (10Y yield), `DFF` (policy rate), `DTWEXBGS` (dollar), `BAA10Y` (Baa minus 10Y Treasury) | Free, no key via `pandas-datareader` | Daily, weekday-only; forward-fill with a **1-day lag** |
 
 **Backfill strategy:** bulk dumps for history → REST API for the incremental tail.
 This also derisks regional API blocking, since the dumps are plain HTTPS on a CDN.
@@ -171,7 +171,7 @@ vix               float     CBOE VIX close (lagged 1 day)
 dgs10             float     10Y Treasury yield, % (lagged 1 day)
 dff               float     Effective fed funds rate, % (lagged 1 day)
 dxy               float     Broad dollar index (lagged 1 day)
-hy_oas            float     ICE BofA US High Yield option-adjusted spread, % (lagged 1 day)
+credit_spread     float     Moody's Baa yield minus 10Y Treasury, % (lagged 1 day)
 ```
 
 Primary key: `(symbol, ts)`. Stored as partitioned parquet on HF Datasets.
@@ -180,6 +180,11 @@ Two columns arrive at finer cadence than the hourly grid: `funding_rate` every 8
 and `open_interest` / `ls_ratio_*` every 5 minutes in the archive. Both are aligned to the
 hour. Metrics keep the **last snapshot inside each hour** (`:55`), so they sit 5 minutes
 behind the bar close — consistently, for every symbol and every hour (D-38).
+
+**Freeze.** Collection stops at `data_end` (2026-10-31, the end of the sealed holdout).
+A final top-up closes October once its monthly archive is published, after which the
+dataset is frozen. Any data after that date is reporting-only and never evaluation data
+(§3.6).
 
 ### 4.3 Feature families (60+ features)
 
@@ -209,8 +214,8 @@ market_dispersion, avg_funding_all, fng, fng_change_7d, fng_z_30d`
 **Macro regime (FRED, daily, lagged 1 day)**
 `vix_level, vix_z_30d, vix_change_1d, yield_10y, yield_change_5d,
 term_spread (DGS10 - DFF), dxy_ret_5d,
-hy_oas_level, hy_oas_z_30d, hy_oas_change_5d,
-macro_risk_off` (dummy: VIX above its 30d median **and** HY OAS widening)
+credit_spread_level, credit_spread_z_30d, credit_spread_change_5d,
+macro_risk_off` (dummy: VIX above its 30d median **and** credit spread widening)
 
 **Dummies / categorical**
 `symbol` (target-encoded or top-N + other), `hour_of_day` (sin/cos or one-hot),
@@ -347,8 +352,9 @@ regime; inspect the worst predictions; list concrete improvement ideas derived f
 download | transform | features | train | predict | simulate | notify | all
 ```
 
-Plus two inspection commands that are not pipeline stages: `config` (resolved settings)
-and `status` (which artifacts exist, how many rows, newest file).
+Plus three inspection commands that are not pipeline stages: `config` (resolved settings),
+`status` (which artifacts exist, how many rows, newest file) and `quality` (per-symbol
+coverage, gaps and null rates).
 
 **Two regimes (rubric 6.4):**
 - `--source hf` — pull a prebuilt dataset snapshot from HF Datasets (fast, reproducible, no refresh)
