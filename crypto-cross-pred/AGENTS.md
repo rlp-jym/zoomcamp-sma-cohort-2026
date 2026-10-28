@@ -86,9 +86,14 @@ Streamlit app: `uv run streamlit run app/streamlit_app.py`
 | Exact iterative sim | `src/crypto_cross_pred/sim/exact.py` |
 | Metrics / benchmarks | `src/crypto_cross_pred/sim/metrics.py` |
 | Plots, Telegram, broker | `src/crypto_cross_pred/report/` |
+| Artifact readers (read-only) | `src/crypto_cross_pred/io/artifacts.py` |
 | Research notebooks | `notebooks/` |
 | Public app | `app/streamlit_app.py` |
 | Run log (append-only) | `experiments.md` |
+
+**The app and `cli status` read artifacts, they never compute signals.** A dashboard that
+recomputes a feature or a ranking is a second implementation of the pipeline, and it will
+drift. Artifact schemas are contracts: docs/SPEC.md §8.1.
 
 ---
 
