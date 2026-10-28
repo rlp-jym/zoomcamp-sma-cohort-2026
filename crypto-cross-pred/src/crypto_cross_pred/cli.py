@@ -11,6 +11,7 @@ from datetime import date
 from crypto_cross_pred.config import PROJECT_ROOT, get_settings
 from crypto_cross_pred.data import download as download_module
 from crypto_cross_pred.data.universe import load_universe
+from crypto_cross_pred.io import huggingface
 from crypto_cross_pred.io.artifacts import artifact_status, newest_artifact_mtime
 from crypto_cross_pred.report import quality
 
@@ -60,7 +61,9 @@ def _print_status() -> int:
 def _cmd_download(args: argparse.Namespace) -> int:
     """Backfill raw data from the Binance archive."""
     if args.source == "hf":
-        raise NotImplementedError("--source hf arrives with P1-08 (Hugging Face snapshot)")
+        target = huggingface.pull_data(get_settings().paths.resolve().data_dir)
+        print(f"pulled HF snapshot into {target}")
+        return 0
 
     settings = get_settings()
     paths = settings.paths.resolve()
