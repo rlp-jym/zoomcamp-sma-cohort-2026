@@ -341,3 +341,75 @@ def fetch_klines_rest(
     frame[numeric] = frame[numeric].astype(float)
     frame["trades"] = frame["trades"].astype("int64")
     return frame[["ts", *numeric, "trades"]].drop_duplicates(subset=["ts"]).sort_values("ts")
+
+def _drop_incomplete_bars(frame: pd.DataFrame, *, now: datetime) -> pd.DataFrame:
+    """Drop the current, still-open hourly bar."""
+    if frame.empty:
+        return frame
+    complete = frame["ts"] + pd.Timedelta(hours=1) <= now
+    return frame.loc[complete].reset_index(drop=True)
+
+
+def incremental_symbol(
+    symbol: str,
+    *,
+    raw_dir: Path,
+    now: datetime | None = None,
+) -> dict[str, int]:
+    """Top up klines and funding from REST, starting after the last stored bar."""
+    now = now or datetime.now(UTC)
+    added: dict[str, int] = {}
+
+    kline_path = storage.partition_path(raw_dir / "binance" / "klines", symbol)
+    last_kline = storage.max_timestamp(kline_path)
+    if last_kline is None:
+        added["klines"] = 0
+    else:
+        start = last_kline + timedelta(hours=1)
+        if start < now:
+            frame = fetch_klines_rest(symbol, start=start, end=now)
+            frame = _drop_incomplete_bars(frame, now=now)
+            added["klines"] = storage.upsert(frame, kline_path, keys=("ts",))
+        else:
+            added["klines"] = 0
+
+    funding_path = storage.partition_path(raw_dir / "binance" / "funding", symbol)
+    last_funding = storage.max_timestamp(funding_path)
+    if last_funding is None:
+        added["funding"] = 0
+    else:
+        records = binance.funding_history(
+            _session(), symbol, start_time=last_funding, end_time=now
+        )
+        if records:
+            frame = pd.DataFrame(records)
+            frame["ts"] = pd.to_datetime(frame["fundingTime"], unit="ms", utc=True)
+            frame["funding_rate"] = frame["fundingRate"].astype(float)
+            added["funding"] = storage.upsert(
+                frame[["ts", "funding_rate"]], funding_path, keys=("ts",)
+            )
+        else:
+            added["funding"] = 0
+
+    return added
+
+
+def incremental(
+    symbols: list[str],
+    *,
+    raw_dir: Path,
+    workers: int = 4,
+) -> list[tuple[str, dict[str, int]]]:
+    """Top up every symbol from REST. A second run should add almost nothing."""
+
+    def run(symbol: str) -> tuple[str, dict[str, int]]:
+        try:
+            added = incremental_symbol(symbol, raw_dir=raw_dir)
+            logger.info("%s incremental: %s", symbol, added)
+            return symbol, added
+        except Exception as error:  # noqa: BLE001 - one symbol must not stop the batch
+            logger.error("%s incremental failed: %s", symbol, error)
+            return symbol, {"klines": 0, "funding": 0}
+
+    with ThreadPoolExecutor(max_workers=workers) as pool:
+        return list(pool.map(run, symbols))

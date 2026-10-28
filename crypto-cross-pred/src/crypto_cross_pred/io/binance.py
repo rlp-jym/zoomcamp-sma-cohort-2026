@@ -162,3 +162,20 @@ def klines(
     if end_time is not None:
         params["endTime"] = int(end_time.timestamp() * 1000)
     return request_json(session, KLINES_PATH, params)
+
+
+def funding_history(
+    session: requests.Session,
+    symbol: str,
+    *,
+    start_time: datetime | None = None,
+    end_time: datetime | None = None,
+    limit: int = MAX_FUNDING_PER_REQUEST,
+) -> list[dict[str, Any]]:
+    """Funding-rate records for one symbol, oldest first."""
+    params: dict[str, Any] = {"symbol": symbol, "limit": limit}
+    if start_time is not None:
+        params["startTime"] = int(start_time.timestamp() * 1000)
+    if end_time is not None:
+        params["endTime"] = int(end_time.timestamp() * 1000)
+    return request_json(session, FUNDING_PATH, params)

@@ -80,6 +80,18 @@ def _cmd_download(args: argparse.Namespace) -> int:
     end = min(settings.dates.holdout_end, date.today())
     datasets = tuple(item.strip() for item in args.datasets.split(",") if item.strip())
 
+    if args.incremental:
+        print(f"incremental: {len(symbols)} symbols")
+        results = download_module.incremental(
+            symbols, raw_dir=paths.raw_dir, workers=args.workers
+        )
+        added_klines = sum(item["klines"] for _, item in results)
+        added_funding = sum(item["funding"] for _, item in results)
+        print()
+        print(f"new klines:  {added_klines:,}")
+        print(f"new funding: {added_funding:,}")
+        return 0
+
     print(f"symbols: {len(symbols)}  {symbols[:3]}{'...' if len(symbols) > 3 else ''}")
     print(f"period:  {start} -> {end}")
     print(f"datasets: {', '.join(datasets)}")
@@ -155,6 +167,11 @@ def build_parser() -> argparse.ArgumentParser:
                 type=int,
                 default=4,
                 help="parallel downloads (default: 4)",
+            )
+            stage_parser.add_argument(
+                "--incremental",
+                action="store_true",
+                help="only fetch bars after the last stored timestamp (REST)",
             )
 
     return parser
