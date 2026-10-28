@@ -36,10 +36,19 @@ homework `pyproject.toml` at the repo root). Python 3.12+.
 ```bash
 cd crypto-cross-pred
 uv sync                      # install runtime deps
-uv sync --all-groups         # include dev + app + bonus groups
+uv sync --all-groups         # include dev + app + notebook groups
 uv run python -m crypto_cross_pred.cli --help
 uv run ruff check . && uv run ruff format --check .
 uv run pytest -q
+```
+
+Notebooks (once: register the kernel; then every notebook change: export and lint):
+
+```bash
+uv run python -m ipykernel install --user --name crypto-cross-pred
+uv run jupyter nbconvert --to python notebooks/00_smoke.ipynb --output-dir scripts
+uv run ruff check --fix scripts/      # nbconvert emits a redundant coding line
+uv run python scripts/00_smoke.py
 ```
 
 Pipeline entry points (target shape):

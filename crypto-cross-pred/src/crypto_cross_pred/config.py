@@ -103,10 +103,7 @@ class PathsConfig(BaseModel):
     def resolve(self) -> PathsConfig:
         """Return a copy with every path anchored at the project root."""
         return PathsConfig(
-            **{
-                name: PROJECT_ROOT / value
-                for name, value in self.model_dump().items()
-            }
+            **{name: PROJECT_ROOT / value for name, value in self.model_dump().items()}
         )
 
 
