@@ -1,0 +1,44 @@
+# Structural configuration. Secrets and machine-specific values live in env vars
+# (see .env.example and AGENTS.md section 7), not here.
+
+universe:
+  quote_asset: USDT
+  contract_type: PERPETUAL
+  anchor_symbol: BTCUSDT
+  min_history_months: 18
+  min_symbols: 150
+  max_symbols: 250
+
+dates:
+  dev_start: "2021-01-01"
+  dev_end: "2025-10-31"
+  holdout_start: "2025-11-01"
+  holdout_end: "2026-10-31"
+
+labels:
+  horizon_hours: 24
+  clf_quantile: 0.80
+
+validation:
+  retrain_frequency: MS
+  embargo_hours: 24
+
+costs:
+  taker_bps: 4.0
+  slippage_bps: 2.0
+  funding_interval_hours: 8
+
+simulation:
+  rebalance_hour_utc: 0
+  top_fraction: 0.10
+  vol_target_annual: 0.15
+  stop_loss_pct: 0.10
+  max_positions: 20
+
+paths:
+  data_dir: data
+  raw_dir: data/raw
+  processed_dir: data/processed
+  predictions_dir: data/predictions
+  sim_dir: data/sim
+  artifacts_dir: data/artifacts

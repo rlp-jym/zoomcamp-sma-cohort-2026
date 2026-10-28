@@ -15,20 +15,20 @@ Each task lists **Done when** = the acceptance test.
 
 | ID | Task | Done when | Commit |
 |---|---|---|---|
-| P0-01 | **[DECISION] Standalone project root.** Confirm `crypto-cross-pred/pyproject.toml` as its own `uv` project, separate from the homework `pyproject.toml` at repo root. Recommended: standalone, so Docker and CI can target it cleanly. | Decision recorded in DECISIONS.md §3 | |
-| P0-02 | Create `crypto-cross-pred/pyproject.toml` (`requires-python = ">=3.12"`) with groups: `core` (pandas, numpy, scikit-learn, optuna, pyarrow, duckdb, requests, pydantic-settings, pyyaml, pandas-datareader, tqdm, huggingface-hub), `dev` (ruff, pytest), `notebook` (jupyter, nbconvert, matplotlib), `app` (streamlit, plotly), `bonus` (python-telegram-bot or just requests) | `uv sync --all-groups` succeeds; `uv.lock` committed | |
-| P0-03 | Create package tree `src/crypto_cross_pred/{io,data,models,sim,report}` with `__init__.py` stubs | `uv run python -c "import crypto_cross_pred"` works | |
-| P0-04 | `config/config.yaml` + `src/crypto_cross_pred/config.py` (pydantic-settings): universe filters, date range, horizon, thresholds, cost bps, paths, HF repo | `uv run python -m crypto_cross_pred.cli config` prints resolved config | |
-| P0-05 | `src/crypto_cross_pred/cli.py` with subcommands `download, transform, features, train, predict, simulate, notify, all` (stubs raising `NotImplementedError`) | `--help` lists all commands | |
-| P0-06 | `src/crypto_cross_pred/contracts.py`: unified schema constant + `TO_PREDICT_REG`, `TO_PREDICT_CLF`, `NUMERIC`, `DUMMIES`, `CATEGORICAL` | Imported successfully; single source of truth | |
-| P0-07 | `.gitignore` for `data/`, `.env`, `*.parquet`, `mlruns/`, `.venv/`, **`project-criteria.md`**; `.env.example` with empty secrets | `git status` clean after a pipeline run; `project-criteria.md` untracked | 25a6c7d |
-| P0-08 | `tests/test_contracts.py` (schema completeness), `tests/test_config.py` | `uv run pytest -q` passes | |
+| P0-01 | **[DECISION] Standalone project root.** Confirm `crypto-cross-pred/pyproject.toml` as its own `uv` project, separate from the homework `pyproject.toml` at repo root. Recommended: standalone, so Docker and CI can target it cleanly. | Decision recorded in DECISIONS.md §3 | 5a85911 |
+| P0-02 | Create `crypto-cross-pred/pyproject.toml` (`requires-python = ">=3.12"`) with groups: `core` (pandas, numpy, scikit-learn, optuna, pyarrow, duckdb, requests, pydantic-settings, pyyaml, pandas-datareader, tqdm, huggingface-hub), `dev` (ruff, pytest), `notebook` (jupyter, nbconvert, matplotlib), `app` (streamlit, plotly), `bonus` (python-telegram-bot or just requests) | `uv sync --all-groups` succeeds; `uv.lock` committed | 683ec82 |
+| P0-03 | Create package tree `src/crypto_cross_pred/{io,data,models,sim,report}` with `__init__.py` stubs | `uv run python -c "import crypto_cross_pred"` works | 683ec82 |
+| P0-04 | `config/config.yaml` + `src/crypto_cross_pred/config.py` (pydantic-settings): universe filters, date range, horizon, thresholds, cost bps, paths, HF repo | `uv run python -m crypto_cross_pred.cli config` prints resolved config | d1226a1 |
+| P0-05 | `src/crypto_cross_pred/cli.py` with subcommands `download, transform, features, train, predict, simulate, notify, all` (stubs raising `NotImplementedError`) | `--help` lists all commands | 6d957e2 |
+| P0-06 | `src/crypto_cross_pred/contracts.py`: unified schema constant + `TO_PREDICT_REG`, `TO_PREDICT_CLF`, `NUMERIC`, `DUMMIES`, `CATEGORICAL` | Imported successfully; single source of truth | dcb068a |
+| P0-07 | `.gitignore` for `data/`, `.env`, `*.parquet`, `mlruns/`, `.venv/`, **`project-criteria.md`**; `.env.example` with empty secrets | `git status` clean after a pipeline run; `project-criteria.md` untracked | 25a6c7d, 98c1779 |
+| P0-08 | `tests/test_contracts.py` (schema completeness), `tests/test_config.py` | `uv run pytest -q` passes | 9891c17 |
 | P0-09 | Ruff config; `ci.yml` at the **repo root** `.github/workflows/` (lint + tests on push to develop/main, `paths: crypto-cross-pred/**`) | CI green on first push | 05dc9ae |
-| P0-10 | `experiments.md`: pre-registered hypothesis, success criteria, plausible metric ranges, empty run table (SPEC §3.5) | File committed **before** the first modelling run | |
+| P0-10 | `experiments.md`: pre-registered hypothesis, success criteria, plausible metric ranges, empty run table (SPEC §3.5) | File committed **before** the first modelling run | 9498a94 |
 | P0-11 | `DECISIONS.md` seeded with D-01…D-35 | Every open decision lists the task it blocks | 25a6c7d, 05dc9ae |
 | P0-12 | `.gitattributes`: `* text=auto`, LF for md/py/yml/toml/ipynb | No CRLF churn warnings on commit | 05dc9ae |
-| P0-13 | Branch protection on `main`: require the `ci` check (GitHub UI) | Direct pushes to `main` blocked; `develop` stays unprotected | |
-| P0-14 | `notebooks/` directory + kernel, and one export path (`nbconvert`) reused by P3-07, P4-12, P5-10, P6-06 | A one-cell notebook exports to `.py` and the script runs headless | |
+| P0-13 | Branch protection on `main`: require the `ci` check (GitHub UI) | Direct pushes to `main` blocked; `develop` stays unprotected | n/a (repo setting) |
+| P0-14 | `notebooks/` directory + kernel, and one export path (`nbconvert`) reused by P3-07, P4-12, P5-10, P6-06 | A one-cell notebook exports to `.py` and the script runs headless | 628c163 |
 
 **Rubric:** 6.2 (deps), 7.1 (modular code)
 

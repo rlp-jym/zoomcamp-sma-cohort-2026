@@ -36,10 +36,19 @@ homework `pyproject.toml` at the repo root). Python 3.12+.
 ```bash
 cd crypto-cross-pred
 uv sync                      # install runtime deps
-uv sync --all-groups         # include dev + app + bonus groups
+uv sync --all-groups         # include dev + app + notebook groups
 uv run python -m crypto_cross_pred.cli --help
 uv run ruff check . && uv run ruff format --check .
 uv run pytest -q
+```
+
+Notebooks (once: register the kernel; then every notebook change: export and lint):
+
+```bash
+uv run python -m ipykernel install --user --name crypto-cross-pred
+uv run jupyter nbconvert --to python notebooks/00_smoke.ipynb --output-dir scripts
+uv run ruff check --fix scripts/      # nbconvert emits a redundant coding line
+uv run python scripts/00_smoke.py
 ```
 
 Pipeline entry points (target shape):
@@ -169,7 +178,9 @@ A task is done when:
 
 1. **Work on `develop`.** Commit frequently and push to `develop` as work progresses.
 2. **Never push to `main` unless explicitly asked.** `main` only receives merges from
-   `develop`, and only on request. Never commit directly to `main`.
+   `develop`, and only on request. Never commit directly to `main`. The branch is protected
+   by a repository ruleset, so a direct push is rejected: land changes with a pull request
+   from `develop` (`gh pr create` → `gh pr merge --merge`).
 3. **Never amend or force-push a pushed commit.** Fix forward with a new commit.
 
 **Commits**

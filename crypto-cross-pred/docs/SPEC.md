@@ -222,8 +222,10 @@ Computed at time `t`, using only data up to `t` for features and data after `t` 
 ```
 fwd_ret_24h        = close[t+24] / close[t] - 1
 cs_excess_ret_24h  = fwd_ret_24h - mean_across_universe(fwd_ret_24h at t+24)
-TO_PREDICT_REG     = cs_excess_ret_24h
-TO_PREDICT_CLF     = 1 if cs_excess_ret_24h >= cross_sectional_p80(t+24) else 0
+is_top_quintile    = 1 if cs_excess_ret_24h >= cross_sectional_p80(t+24) else 0
+
+TO_PREDICT_REG     = ["cs_excess_ret_24h"]
+TO_PREDICT_CLF     = ["is_top_quintile"]
 ```
 
 The 80th-percentile threshold is computed per timestamp, so the class balance is

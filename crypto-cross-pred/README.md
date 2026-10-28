@@ -70,4 +70,6 @@ is in [docs/DECISIONS.md](docs/DECISIONS.md).
 
 ## Status
 
-Placeholder. Scaffolding has not started; this file will grow as the project is built.
+Phase 0 (scaffold) is complete: `uv` project, package tree, typed config, CLI stubs,
+contracts module, tests, CI, and the notebook export path. Data acquisition starts at
+Phase 1. See [docs/TASKS.md](docs/TASKS.md) for the live task board.
