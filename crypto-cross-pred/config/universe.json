@@ -1,0 +1,1186 @@
+{
+  "generated_at": "2026-10-28T05:44:31.356585+00:00",
+  "as_of": "2025-10-31T23:59:00+00:00",
+  "source": "binance",
+  "min_history_months": 18,
+  "lookback_days": 30,
+  "symbol_count": 196,
+  "symbols": [
+    {
+      "symbol": "ETHUSDT",
+      "base_asset": "ETH",
+      "onboard_date": "2019-11-27T07:45:00+00:00",
+      "quote_volume_30d": 605239890976.18
+    },
+    {
+      "symbol": "BTCUSDT",
+      "base_asset": "BTC",
+      "onboard_date": "2019-09-08T17:55:00+00:00",
+      "quote_volume_30d": 552550846800.75
+    },
+    {
+      "symbol": "SOLUSDT",
+      "base_asset": "SOL",
+      "onboard_date": "2020-09-14T07:00:00+00:00",
+      "quote_volume_30d": 172658939734.67
+    },
+    {
+      "symbol": "BNBUSDT",
+      "base_asset": "BNB",
+      "onboard_date": "2020-02-10T08:00:00+00:00",
+      "quote_volume_30d": 74439734246.49
+    },
+    {
+      "symbol": "DOGEUSDT",
+      "base_asset": "DOGE",
+      "onboard_date": "2020-07-10T09:00:00+00:00",
+      "quote_volume_30d": 64539326684.38
+    },
+    {
+      "symbol": "XRPUSDT",
+      "base_asset": "XRP",
+      "onboard_date": "2020-01-06T08:20:00+00:00",
+      "quote_volume_30d": 58842458725.79
+    },
+    {
+      "symbol": "ZECUSDT",
+      "base_asset": "ZEC",
+      "onboard_date": "2020-02-05T08:00:00+00:00",
+      "quote_volume_30d": 26105782907.75
+    },
+    {
+      "symbol": "SUIUSDT",
+      "base_asset": "SUI",
+      "onboard_date": "2023-05-03T00:00:00+00:00",
+      "quote_volume_30d": 19036403299.2
+    },
+    {
+      "symbol": "1000PEPEUSDT",
+      "base_asset": "1000PEPE",
+      "onboard_date": "2023-05-05T00:00:00+00:00",
+      "quote_volume_30d": 16766307096.24
+    },
+    {
+      "symbol": "LINKUSDT",
+      "base_asset": "LINK",
+      "onboard_date": "2020-01-17T08:00:00+00:00",
+      "quote_volume_30d": 15041056634.06
+    },
+    {
+      "symbol": "ENAUSDT",
+      "base_asset": "ENA",
+      "onboard_date": "2024-04-02T12:30:00+00:00",
+      "quote_volume_30d": 14822599313.72
+    },
+    {
+      "symbol": "AVAXUSDT",
+      "base_asset": "AVAX",
+      "onboard_date": "2020-09-23T07:00:00+00:00",
+      "quote_volume_30d": 14532260962.67
+    },
+    {
+      "symbol": "ADAUSDT",
+      "base_asset": "ADA",
+      "onboard_date": "2020-01-31T08:00:00+00:00",
+      "quote_volume_30d": 14529415560.91
+    },
+    {
+      "symbol": "LTCUSDT",
+      "base_asset": "LTC",
+      "onboard_date": "2020-01-09T08:05:00+00:00",
+      "quote_volume_30d": 11382703090.55
+    },
+    {
+      "symbol": "TAOUSDT",
+      "base_asset": "TAO",
+      "onboard_date": "2024-04-11T14:30:00+00:00",
+      "quote_volume_30d": 9426361359.02
+    },
+    {
+      "symbol": "WLDUSDT",
+      "base_asset": "WLD",
+      "onboard_date": "2023-07-24T12:00:00+00:00",
+      "quote_volume_30d": 6566044088.64
+    },
+    {
+      "symbol": "AAVEUSDT",
+      "base_asset": "AAVE",
+      "onboard_date": "2020-10-16T07:00:00+00:00",
+      "quote_volume_30d": 5886571472.7
+    },
+    {
+      "symbol": "DOTUSDT",
+      "base_asset": "DOT",
+      "onboard_date": "2020-08-22T07:00:00+00:00",
+      "quote_volume_30d": 5840915572.95
+    },
+    {
+      "symbol": "WIFUSDT",
+      "base_asset": "WIF",
+      "onboard_date": "2024-01-18T14:15:00+00:00",
+      "quote_volume_30d": 5832546827.11
+    },
+    {
+      "symbol": "NEARUSDT",
+      "base_asset": "NEAR",
+      "onboard_date": "2020-10-15T08:00:00+00:00",
+      "quote_volume_30d": 5676526419.33
+    },
+    {
+      "symbol": "BCHUSDT",
+      "base_asset": "BCH",
+      "onboard_date": "2019-12-19T08:55:00+00:00",
+      "quote_volume_30d": 5562577693.19
+    },
+    {
+      "symbol": "CAKEUSDT",
+      "base_asset": "CAKE",
+      "onboard_date": "2023-11-02T12:45:00+00:00",
+      "quote_volume_30d": 5229561591.61
+    },
+    {
+      "symbol": "APTUSDT",
+      "base_asset": "APT",
+      "onboard_date": "2022-10-18T07:00:00+00:00",
+      "quote_volume_30d": 5147480292.39
+    },
+    {
+      "symbol": "1000BONKUSDT",
+      "base_asset": "1000BONK",
+      "onboard_date": "2023-11-22T14:00:00+00:00",
+      "quote_volume_30d": 4743538461.3
+    },
+    {
+      "symbol": "FILUSDT",
+      "base_asset": "FIL",
+      "onboard_date": "2020-10-16T06:00:00+00:00",
+      "quote_volume_30d": 4591828366.75
+    },
+    {
+      "symbol": "ARBUSDT",
+      "base_asset": "ARB",
+      "onboard_date": "2023-03-23T07:00:00+00:00",
+      "quote_volume_30d": 4417238507.75
+    },
+    {
+      "symbol": "UNIUSDT",
+      "base_asset": "UNI",
+      "onboard_date": "2020-09-18T07:00:00+00:00",
+      "quote_volume_30d": 4211477399.78
+    },
+    {
+      "symbol": "HBARUSDT",
+      "base_asset": "HBAR",
+      "onboard_date": "2021-03-17T07:00:00+00:00",
+      "quote_volume_30d": 4109416534.26
+    },
+    {
+      "symbol": "SNXUSDT",
+      "base_asset": "SNX",
+      "onboard_date": "2020-08-14T07:00:00+00:00",
+      "quote_volume_30d": 3972164298.15
+    },
+    {
+      "symbol": "CRVUSDT",
+      "base_asset": "CRV",
+      "onboard_date": "2020-09-01T07:00:00+00:00",
+      "quote_volume_30d": 3741851568.42
+    },
+    {
+      "symbol": "ZENUSDT",
+      "base_asset": "ZEN",
+      "onboard_date": "2020-11-24T07:00:00+00:00",
+      "quote_volume_30d": 3707118241.04
+    },
+    {
+      "symbol": "1000SHIBUSDT",
+      "base_asset": "1000SHIB",
+      "onboard_date": "2021-05-10T07:00:00+00:00",
+      "quote_volume_30d": 3674043351.68
+    },
+    {
+      "symbol": "TRXUSDT",
+      "base_asset": "TRX",
+      "onboard_date": "2020-01-15T08:05:00+00:00",
+      "quote_volume_30d": 3647836833.68
+    },
+    {
+      "symbol": "TIAUSDT",
+      "base_asset": "TIA",
+      "onboard_date": "2023-10-31T16:30:00+00:00",
+      "quote_volume_30d": 3528052228.0
+    },
+    {
+      "symbol": "ETCUSDT",
+      "base_asset": "ETC",
+      "onboard_date": "2020-01-16T08:00:00+00:00",
+      "quote_volume_30d": 3481775434.76
+    },
+    {
+      "symbol": "XLMUSDT",
+      "base_asset": "XLM",
+      "onboard_date": "2020-01-20T08:00:00+00:00",
+      "quote_volume_30d": 3436797385.34
+    },
+    {
+      "symbol": "ONDOUSDT",
+      "base_asset": "ONDO",
+      "onboard_date": "2024-01-20T13:00:00+00:00",
+      "quote_volume_30d": 3389851322.4
+    },
+    {
+      "symbol": "OPUSDT",
+      "base_asset": "OP",
+      "onboard_date": "2022-06-01T07:00:00+00:00",
+      "quote_volume_30d": 3164159434.02
+    },
+    {
+      "symbol": "ETHFIUSDT",
+      "base_asset": "ETHFI",
+      "onboard_date": "2024-03-18T15:30:00+00:00",
+      "quote_volume_30d": 3156580904.64
+    },
+    {
+      "symbol": "LDOUSDT",
+      "base_asset": "LDO",
+      "onboard_date": "2022-09-21T07:00:00+00:00",
+      "quote_volume_30d": 2985677464.79
+    },
+    {
+      "symbol": "DASHUSDT",
+      "base_asset": "DASH",
+      "onboard_date": "2020-02-04T08:05:00+00:00",
+      "quote_volume_30d": 2932014147.66
+    },
+    {
+      "symbol": "1000FLOKIUSDT",
+      "base_asset": "1000FLOKI",
+      "onboard_date": "2023-05-06T00:00:00+00:00",
+      "quote_volume_30d": 2847825094.31
+    },
+    {
+      "symbol": "FETUSDT",
+      "base_asset": "FET",
+      "onboard_date": "2023-01-15T07:00:00+00:00",
+      "quote_volume_30d": 2459835144.44
+    },
+    {
+      "symbol": "INJUSDT",
+      "base_asset": "INJ",
+      "onboard_date": "2022-08-16T07:00:00+00:00",
+      "quote_volume_30d": 2222728411.5
+    },
+    {
+      "symbol": "SEIUSDT",
+      "base_asset": "SEI",
+      "onboard_date": "2023-08-17T02:30:00+00:00",
+      "quote_volume_30d": 2198099681.72
+    },
+    {
+      "symbol": "CELOUSDT",
+      "base_asset": "CELO",
+      "onboard_date": "2021-09-26T07:00:00+00:00",
+      "quote_volume_30d": 1920635339.82
+    },
+    {
+      "symbol": "GALAUSDT",
+      "base_asset": "GALA",
+      "onboard_date": "2021-09-17T07:00:00+00:00",
+      "quote_volume_30d": 1790379631.25
+    },
+    {
+      "symbol": "ATOMUSDT",
+      "base_asset": "ATOM",
+      "onboard_date": "2020-02-07T12:10:00+00:00",
+      "quote_volume_30d": 1752833395.45
+    },
+    {
+      "symbol": "AUCTIONUSDT",
+      "base_asset": "AUCTION",
+      "onboard_date": "2023-12-15T13:00:00+00:00",
+      "quote_volume_30d": 1579807390.62
+    },
+    {
+      "symbol": "WUSDT",
+      "base_asset": "W",
+      "onboard_date": "2024-04-03T15:30:00+00:00",
+      "quote_volume_30d": 1445739463.98
+    },
+    {
+      "symbol": "STRKUSDT",
+      "base_asset": "STRK",
+      "onboard_date": "2024-02-20T17:00:00+00:00",
+      "quote_volume_30d": 1399262017.74
+    },
+    {
+      "symbol": "BELUSDT",
+      "base_asset": "BEL",
+      "onboard_date": "2020-11-18T07:00:00+00:00",
+      "quote_volume_30d": 1396314666.76
+    },
+    {
+      "symbol": "ALICEUSDT",
+      "base_asset": "ALICE",
+      "onboard_date": "2021-03-15T07:00:00+00:00",
+      "quote_volume_30d": 1388914956.28
+    },
+    {
+      "symbol": "PENDLEUSDT",
+      "base_asset": "PENDLE",
+      "onboard_date": "2023-07-28T02:30:00+00:00",
+      "quote_volume_30d": 1387331753.26
+    },
+    {
+      "symbol": "API3USDT",
+      "base_asset": "API3",
+      "onboard_date": "2022-02-21T07:00:00+00:00",
+      "quote_volume_30d": 1348885276.67
+    },
+    {
+      "symbol": "DYDXUSDT",
+      "base_asset": "DYDX",
+      "onboard_date": "2021-09-09T07:00:00+00:00",
+      "quote_volume_30d": 1243502653.41
+    },
+    {
+      "symbol": "JUPUSDT",
+      "base_asset": "JUP",
+      "onboard_date": "2024-01-31T18:30:00+00:00",
+      "quote_volume_30d": 1230179902.91
+    },
+    {
+      "symbol": "ALGOUSDT",
+      "base_asset": "ALGO",
+      "onboard_date": "2020-06-16T09:00:00+00:00",
+      "quote_volume_30d": 1223532312.1
+    },
+    {
+      "symbol": "ORDIUSDT",
+      "base_asset": "ORDI",
+      "onboard_date": "2023-11-07T12:30:00+00:00",
+      "quote_volume_30d": 1109732743.9
+    },
+    {
+      "symbol": "PYTHUSDT",
+      "base_asset": "PYTH",
+      "onboard_date": "2023-11-22T14:30:00+00:00",
+      "quote_volume_30d": 1098612757.69
+    },
+    {
+      "symbol": "ICPUSDT",
+      "base_asset": "ICP",
+      "onboard_date": "2021-07-30T07:00:00+00:00",
+      "quote_volume_30d": 1044925911.3
+    },
+    {
+      "symbol": "XMRUSDT",
+      "base_asset": "XMR",
+      "onboard_date": "2020-02-03T08:00:00+00:00",
+      "quote_volume_30d": 988285610.34
+    },
+    {
+      "symbol": "YGGUSDT",
+      "base_asset": "YGG",
+      "onboard_date": "2023-08-05T03:30:00+00:00",
+      "quote_volume_30d": 946508821.64
+    },
+    {
+      "symbol": "ENSUSDT",
+      "base_asset": "ENS",
+      "onboard_date": "2021-11-29T07:00:00+00:00",
+      "quote_volume_30d": 905373190.66
+    },
+    {
+      "symbol": "JTOUSDT",
+      "base_asset": "JTO",
+      "onboard_date": "2023-12-08T10:00:00+00:00",
+      "quote_volume_30d": 881481397.0
+    },
+    {
+      "symbol": "APEUSDT",
+      "base_asset": "APE",
+      "onboard_date": "2022-03-17T07:00:00+00:00",
+      "quote_volume_30d": 872043002.9
+    },
+    {
+      "symbol": "SANDUSDT",
+      "base_asset": "SAND",
+      "onboard_date": "2021-01-18T07:00:00+00:00",
+      "quote_volume_30d": 862071878.77
+    },
+    {
+      "symbol": "TWTUSDT",
+      "base_asset": "TWT",
+      "onboard_date": "2023-11-03T14:30:00+00:00",
+      "quote_volume_30d": 804333260.55
+    },
+    {
+      "symbol": "ARKMUSDT",
+      "base_asset": "ARKM",
+      "onboard_date": "2023-07-28T02:45:00+00:00",
+      "quote_volume_30d": 770937696.88
+    },
+    {
+      "symbol": "NMRUSDT",
+      "base_asset": "NMR",
+      "onboard_date": "2023-06-22T12:00:00+00:00",
+      "quote_volume_30d": 764999993.38
+    },
+    {
+      "symbol": "FLOWUSDT",
+      "base_asset": "FLOW",
+      "onboard_date": "2022-02-09T07:00:00+00:00",
+      "quote_volume_30d": 757903200.95
+    },
+    {
+      "symbol": "CFXUSDT",
+      "base_asset": "CFX",
+      "onboard_date": "2023-02-19T07:00:00+00:00",
+      "quote_volume_30d": 734574381.55
+    },
+    {
+      "symbol": "TRBUSDT",
+      "base_asset": "TRB",
+      "onboard_date": "2020-09-03T07:00:00+00:00",
+      "quote_volume_30d": 728373348.21
+    },
+    {
+      "symbol": "IMXUSDT",
+      "base_asset": "IMX",
+      "onboard_date": "2022-02-10T07:00:00+00:00",
+      "quote_volume_30d": 719302079.16
+    },
+    {
+      "symbol": "MANAUSDT",
+      "base_asset": "MANA",
+      "onboard_date": "2021-03-14T07:00:00+00:00",
+      "quote_volume_30d": 666328849.1
+    },
+    {
+      "symbol": "BOMEUSDT",
+      "base_asset": "BOME",
+      "onboard_date": "2024-03-16T12:30:00+00:00",
+      "quote_volume_30d": 661553200.47
+    },
+    {
+      "symbol": "VETUSDT",
+      "base_asset": "VET",
+      "onboard_date": "2020-02-14T08:00:00+00:00",
+      "quote_volume_30d": 651211771.19
+    },
+    {
+      "symbol": "1000SATSUSDT",
+      "base_asset": "1000SATS",
+      "onboard_date": "2023-12-12T14:00:00+00:00",
+      "quote_volume_30d": 645200973.85
+    },
+    {
+      "symbol": "BATUSDT",
+      "base_asset": "BAT",
+      "onboard_date": "2020-02-13T08:05:00+00:00",
+      "quote_volume_30d": 629530323.97
+    },
+    {
+      "symbol": "XVGUSDT",
+      "base_asset": "XVG",
+      "onboard_date": "2023-07-05T12:00:00+00:00",
+      "quote_volume_30d": 615482656.44
+    },
+    {
+      "symbol": "SUPERUSDT",
+      "base_asset": "SUPER",
+      "onboard_date": "2023-11-26T13:00:00+00:00",
+      "quote_volume_30d": 613754996.43
+    },
+    {
+      "symbol": "KAVAUSDT",
+      "base_asset": "KAVA",
+      "onboard_date": "2020-07-28T07:05:00+00:00",
+      "quote_volume_30d": 607632813.18
+    },
+    {
+      "symbol": "ARUSDT",
+      "base_asset": "AR",
+      "onboard_date": "2021-09-28T07:00:00+00:00",
+      "quote_volume_30d": 607504329.67
+    },
+    {
+      "symbol": "MAGICUSDT",
+      "base_asset": "MAGIC",
+      "onboard_date": "2023-01-23T07:00:00+00:00",
+      "quote_volume_30d": 598048596.23
+    },
+    {
+      "symbol": "SUSHIUSDT",
+      "base_asset": "SUSHI",
+      "onboard_date": "2020-09-04T07:00:00+00:00",
+      "quote_volume_30d": 587744609.75
+    },
+    {
+      "symbol": "EDUUSDT",
+      "base_asset": "EDU",
+      "onboard_date": "2023-04-28T00:00:00+00:00",
+      "quote_volume_30d": 582485700.26
+    },
+    {
+      "symbol": "MEMEUSDT",
+      "base_asset": "MEME",
+      "onboard_date": "2023-11-03T12:00:00+00:00",
+      "quote_volume_30d": 562492925.27
+    },
+    {
+      "symbol": "1000RATSUSDT",
+      "base_asset": "1000RATS",
+      "onboard_date": "2023-12-15T14:00:00+00:00",
+      "quote_volume_30d": 557249555.51
+    },
+    {
+      "symbol": "KASUSDT",
+      "base_asset": "KAS",
+      "onboard_date": "2023-11-17T02:00:00+00:00",
+      "quote_volume_30d": 551762908.56
+    },
+    {
+      "symbol": "C98USDT",
+      "base_asset": "C98",
+      "onboard_date": "2021-08-23T07:00:00+00:00",
+      "quote_volume_30d": 528604497.4
+    },
+    {
+      "symbol": "PEOPLEUSDT",
+      "base_asset": "PEOPLE",
+      "onboard_date": "2021-12-23T07:00:00+00:00",
+      "quote_volume_30d": 525528427.68
+    },
+    {
+      "symbol": "COMPUSDT",
+      "base_asset": "COMP",
+      "onboard_date": "2020-06-30T09:00:00+00:00",
+      "quote_volume_30d": 524752199.78
+    },
+    {
+      "symbol": "USDCUSDT",
+      "base_asset": "USDC",
+      "onboard_date": "2023-03-12T00:00:00+00:00",
+      "quote_volume_30d": 510323856.21
+    },
+    {
+      "symbol": "THETAUSDT",
+      "base_asset": "THETA",
+      "onboard_date": "2020-05-27T08:00:00+00:00",
+      "quote_volume_30d": 505420094.12
+    },
+    {
+      "symbol": "STXUSDT",
+      "base_asset": "STX",
+      "onboard_date": "2023-02-20T07:00:00+00:00",
+      "quote_volume_30d": 503117297.16
+    },
+    {
+      "symbol": "AXSUSDT",
+      "base_asset": "AXS",
+      "onboard_date": "2020-11-20T07:00:00+00:00",
+      "quote_volume_30d": 495788104.28
+    },
+    {
+      "symbol": "NEOUSDT",
+      "base_asset": "NEO",
+      "onboard_date": "2020-02-17T08:45:00+00:00",
+      "quote_volume_30d": 479458224.85
+    },
+    {
+      "symbol": "RSRUSDT",
+      "base_asset": "RSR",
+      "onboard_date": "2020-10-19T07:05:00+00:00",
+      "quote_volume_30d": 470326309.18
+    },
+    {
+      "symbol": "RUNEUSDT",
+      "base_asset": "RUNE",
+      "onboard_date": "2020-09-04T07:10:00+00:00",
+      "quote_volume_30d": 463502884.16
+    },
+    {
+      "symbol": "SKLUSDT",
+      "base_asset": "SKL",
+      "onboard_date": "2020-08-24T07:00:00+00:00",
+      "quote_volume_30d": 456740279.36
+    },
+    {
+      "symbol": "GRTUSDT",
+      "base_asset": "GRT",
+      "onboard_date": "2020-12-18T07:00:00+00:00",
+      "quote_volume_30d": 447003451.46
+    },
+    {
+      "symbol": "LPTUSDT",
+      "base_asset": "LPT",
+      "onboard_date": "2021-11-10T07:00:00+00:00",
+      "quote_volume_30d": 441973626.03
+    },
+    {
+      "symbol": "QTUMUSDT",
+      "base_asset": "QTUM",
+      "onboard_date": "2020-02-20T08:05:00+00:00",
+      "quote_volume_30d": 440718605.26
+    },
+    {
+      "symbol": "REZUSDT",
+      "base_asset": "REZ",
+      "onboard_date": "2024-04-30T14:00:00+00:00",
+      "quote_volume_30d": 438537891.36
+    },
+    {
+      "symbol": "UMAUSDT",
+      "base_asset": "UMA",
+      "onboard_date": "2023-05-09T00:00:00+00:00",
+      "quote_volume_30d": 437596712.59
+    },
+    {
+      "symbol": "ASTRUSDT",
+      "base_asset": "ASTR",
+      "onboard_date": "2023-02-13T07:00:00+00:00",
+      "quote_volume_30d": 403160239.3
+    },
+    {
+      "symbol": "BTCDOMUSDT",
+      "base_asset": "BTCDOM",
+      "onboard_date": "2021-06-17T07:00:00+00:00",
+      "quote_volume_30d": 389976884.2
+    },
+    {
+      "symbol": "XTZUSDT",
+      "base_asset": "XTZ",
+      "onboard_date": "2020-02-06T08:00:00+00:00",
+      "quote_volume_30d": 378662822.52
+    },
+    {
+      "symbol": "XAIUSDT",
+      "base_asset": "XAI",
+      "onboard_date": "2024-01-09T14:00:00+00:00",
+      "quote_volume_30d": 368619851.97
+    },
+    {
+      "symbol": "CHZUSDT",
+      "base_asset": "CHZ",
+      "onboard_date": "2021-01-21T07:00:00+00:00",
+      "quote_volume_30d": 366407776.11
+    },
+    {
+      "symbol": "JASMYUSDT",
+      "base_asset": "JASMY",
+      "onboard_date": "2022-04-19T07:00:00+00:00",
+      "quote_volume_30d": 355025496.76
+    },
+    {
+      "symbol": "IOTAUSDT",
+      "base_asset": "IOTA",
+      "onboard_date": "2020-02-12T08:00:00+00:00",
+      "quote_volume_30d": 342623244.85
+    },
+    {
+      "symbol": "AEVOUSDT",
+      "base_asset": "AEVO",
+      "onboard_date": "2024-03-13T13:30:00+00:00",
+      "quote_volume_30d": 329476033.1
+    },
+    {
+      "symbol": "EGLDUSDT",
+      "base_asset": "EGLD",
+      "onboard_date": "2020-09-14T07:00:00+00:00",
+      "quote_volume_30d": 326102096.19
+    },
+    {
+      "symbol": "BEAMXUSDT",
+      "base_asset": "BEAMX",
+      "onboard_date": "2023-11-17T13:30:00+00:00",
+      "quote_volume_30d": 314409302.37
+    },
+    {
+      "symbol": "ARPAUSDT",
+      "base_asset": "ARPA",
+      "onboard_date": "2021-10-18T07:00:00+00:00",
+      "quote_volume_30d": 313281961.31
+    },
+    {
+      "symbol": "ROSEUSDT",
+      "base_asset": "ROSE",
+      "onboard_date": "2021-12-31T07:00:00+00:00",
+      "quote_volume_30d": 313191172.47
+    },
+    {
+      "symbol": "GMTUSDT",
+      "base_asset": "GMT",
+      "onboard_date": "2022-03-14T07:00:00+00:00",
+      "quote_volume_30d": 307933169.04
+    },
+    {
+      "symbol": "SAGAUSDT",
+      "base_asset": "SAGA",
+      "onboard_date": "2024-04-09T10:30:00+00:00",
+      "quote_volume_30d": 307747088.84
+    },
+    {
+      "symbol": "SSVUSDT",
+      "base_asset": "SSV",
+      "onboard_date": "2023-02-23T07:00:00+00:00",
+      "quote_volume_30d": 305708182.3
+    },
+    {
+      "symbol": "1000LUNCUSDT",
+      "base_asset": "1000LUNC",
+      "onboard_date": "2022-09-08T07:00:00+00:00",
+      "quote_volume_30d": 301350682.08
+    },
+    {
+      "symbol": "CYBERUSDT",
+      "base_asset": "CYBER",
+      "onboard_date": "2023-08-21T12:00:00+00:00",
+      "quote_volume_30d": 291289766.6
+    },
+    {
+      "symbol": "ACHUSDT",
+      "base_asset": "ACH",
+      "onboard_date": "2023-02-21T07:00:00+00:00",
+      "quote_volume_30d": 287298268.35
+    },
+    {
+      "symbol": "ALTUSDT",
+      "base_asset": "ALT",
+      "onboard_date": "2024-01-25T14:00:00+00:00",
+      "quote_volume_30d": 280947111.06
+    },
+    {
+      "symbol": "MASKUSDT",
+      "base_asset": "MASK",
+      "onboard_date": "2021-07-16T07:00:00+00:00",
+      "quote_volume_30d": 278549694.68
+    },
+    {
+      "symbol": "QNTUSDT",
+      "base_asset": "QNT",
+      "onboard_date": "2022-10-18T07:00:00+00:00",
+      "quote_volume_30d": 270108607.68
+    },
+    {
+      "symbol": "MINAUSDT",
+      "base_asset": "MINA",
+      "onboard_date": "2023-02-03T07:00:00+00:00",
+      "quote_volume_30d": 257782807.12
+    },
+    {
+      "symbol": "1INCHUSDT",
+      "base_asset": "1INCH",
+      "onboard_date": "2020-12-25T07:00:00+00:00",
+      "quote_volume_30d": 238293208.77
+    },
+    {
+      "symbol": "AXLUSDT",
+      "base_asset": "AXL",
+      "onboard_date": "2024-03-01T15:30:00+00:00",
+      "quote_volume_30d": 237939211.71
+    },
+    {
+      "symbol": "MAVUSDT",
+      "base_asset": "MAV",
+      "onboard_date": "2023-06-29T12:00:00+00:00",
+      "quote_volume_30d": 220763832.34
+    },
+    {
+      "symbol": "ZRXUSDT",
+      "base_asset": "ZRX",
+      "onboard_date": "2020-06-24T09:00:00+00:00",
+      "quote_volume_30d": 219776587.1
+    },
+    {
+      "symbol": "LQTYUSDT",
+      "base_asset": "LQTY",
+      "onboard_date": "2023-03-08T07:00:00+00:00",
+      "quote_volume_30d": 214129662.12
+    },
+    {
+      "symbol": "BIGTIMEUSDT",
+      "base_asset": "BIGTIME",
+      "onboard_date": "2023-10-12T14:30:00+00:00",
+      "quote_volume_30d": 208155461.42
+    },
+    {
+      "symbol": "YFIUSDT",
+      "base_asset": "YFI",
+      "onboard_date": "2020-08-31T07:00:00+00:00",
+      "quote_volume_30d": 208127135.36
+    },
+    {
+      "symbol": "BLURUSDT",
+      "base_asset": "BLUR",
+      "onboard_date": "2023-04-27T00:00:00+00:00",
+      "quote_volume_30d": 206601857.14
+    },
+    {
+      "symbol": "BSVUSDT",
+      "base_asset": "BSV",
+      "onboard_date": "2023-10-20T12:30:00+00:00",
+      "quote_volume_30d": 196993635.68
+    },
+    {
+      "symbol": "KSMUSDT",
+      "base_asset": "KSM",
+      "onboard_date": "2020-10-14T07:00:00+00:00",
+      "quote_volume_30d": 196873020.27
+    },
+    {
+      "symbol": "RVNUSDT",
+      "base_asset": "RVN",
+      "onboard_date": "2021-02-23T07:00:00+00:00",
+      "quote_volume_30d": 195761467.86
+    },
+    {
+      "symbol": "ZILUSDT",
+      "base_asset": "ZIL",
+      "onboard_date": "2020-06-18T09:00:00+00:00",
+      "quote_volume_30d": 190804733.88
+    },
+    {
+      "symbol": "IOTXUSDT",
+      "base_asset": "IOTX",
+      "onboard_date": "2021-08-11T07:00:00+00:00",
+      "quote_volume_30d": 188174568.77
+    },
+    {
+      "symbol": "COTIUSDT",
+      "base_asset": "COTI",
+      "onboard_date": "2021-03-09T07:00:00+00:00",
+      "quote_volume_30d": 186836255.39
+    },
+    {
+      "symbol": "GMXUSDT",
+      "base_asset": "GMX",
+      "onboard_date": "2023-02-16T07:00:00+00:00",
+      "quote_volume_30d": 185985065.36
+    },
+    {
+      "symbol": "IDUSDT",
+      "base_asset": "ID",
+      "onboard_date": "2023-03-23T00:00:00+00:00",
+      "quote_volume_30d": 183113180.08
+    },
+    {
+      "symbol": "MANTAUSDT",
+      "base_asset": "MANTA",
+      "onboard_date": "2024-01-18T14:00:00+00:00",
+      "quote_volume_30d": 175512015.47
+    },
+    {
+      "symbol": "LUNA2USDT",
+      "base_asset": "LUNA2",
+      "onboard_date": "2022-09-09T07:00:00+00:00",
+      "quote_volume_30d": 175138729.27
+    },
+    {
+      "symbol": "TLMUSDT",
+      "base_asset": "TLM",
+      "onboard_date": "2023-03-29T00:00:00+00:00",
+      "quote_volume_30d": 173983294.18
+    },
+    {
+      "symbol": "ONTUSDT",
+      "base_asset": "ONT",
+      "onboard_date": "2020-02-11T08:05:00+00:00",
+      "quote_volume_30d": 171699311.1
+    },
+    {
+      "symbol": "CHRUSDT",
+      "base_asset": "CHR",
+      "onboard_date": "2021-03-12T07:00:00+00:00",
+      "quote_volume_30d": 171630019.07
+    },
+    {
+      "symbol": "HOTUSDT",
+      "base_asset": "HOT",
+      "onboard_date": "2021-03-30T07:00:00+00:00",
+      "quote_volume_30d": 169954830.42
+    },
+    {
+      "symbol": "RLCUSDT",
+      "base_asset": "RLC",
+      "onboard_date": "2020-07-31T07:00:00+00:00",
+      "quote_volume_30d": 169868615.24
+    },
+    {
+      "symbol": "ONEUSDT",
+      "base_asset": "ONE",
+      "onboard_date": "2021-03-17T07:00:00+00:00",
+      "quote_volume_30d": 165276096.13
+    },
+    {
+      "symbol": "WOOUSDT",
+      "base_asset": "WOO",
+      "onboard_date": "2022-04-07T07:00:00+00:00",
+      "quote_volume_30d": 159158221.42
+    },
+    {
+      "symbol": "ZETAUSDT",
+      "base_asset": "ZETA",
+      "onboard_date": "2024-02-02T08:30:00+00:00",
+      "quote_volume_30d": 153258967.17
+    },
+    {
+      "symbol": "ILVUSDT",
+      "base_asset": "ILV",
+      "onboard_date": "2023-11-10T16:30:00+00:00",
+      "quote_volume_30d": 153007519.9
+    },
+    {
+      "symbol": "ACEUSDT",
+      "base_asset": "ACE",
+      "onboard_date": "2023-12-18T10:00:00+00:00",
+      "quote_volume_30d": 147962767.64
+    },
+    {
+      "symbol": "KNCUSDT",
+      "base_asset": "KNC",
+      "onboard_date": "2020-06-22T08:50:00+00:00",
+      "quote_volume_30d": 140550626.78
+    },
+    {
+      "symbol": "ENJUSDT",
+      "base_asset": "ENJ",
+      "onboard_date": "2020-09-29T07:00:00+00:00",
+      "quote_volume_30d": 140414540.6
+    },
+    {
+      "symbol": "PIXELUSDT",
+      "base_asset": "PIXEL",
+      "onboard_date": "2024-02-19T15:00:00+00:00",
+      "quote_volume_30d": 139194984.32
+    },
+    {
+      "symbol": "METISUSDT",
+      "base_asset": "METIS",
+      "onboard_date": "2024-03-12T08:30:00+00:00",
+      "quote_volume_30d": 137822634.11
+    },
+    {
+      "symbol": "DUSKUSDT",
+      "base_asset": "DUSK",
+      "onboard_date": "2022-01-06T07:00:00+00:00",
+      "quote_volume_30d": 137744218.99
+    },
+    {
+      "symbol": "CKBUSDT",
+      "base_asset": "CKB",
+      "onboard_date": "2023-02-27T07:00:00+00:00",
+      "quote_volume_30d": 137591130.57
+    },
+    {
+      "symbol": "PORTALUSDT",
+      "base_asset": "PORTAL",
+      "onboard_date": "2024-02-29T15:00:00+00:00",
+      "quote_volume_30d": 135983010.31
+    },
+    {
+      "symbol": "XVSUSDT",
+      "base_asset": "XVS",
+      "onboard_date": "2023-04-12T00:00:00+00:00",
+      "quote_volume_30d": 134490878.23
+    },
+    {
+      "symbol": "GLMUSDT",
+      "base_asset": "GLM",
+      "onboard_date": "2024-02-22T10:00:00+00:00",
+      "quote_volume_30d": 132970508.72
+    },
+    {
+      "symbol": "BANDUSDT",
+      "base_asset": "BAND",
+      "onboard_date": "2020-07-29T07:00:00+00:00",
+      "quote_volume_30d": 130191993.54
+    },
+    {
+      "symbol": "USTCUSDT",
+      "base_asset": "USTC",
+      "onboard_date": "2023-11-27T12:30:00+00:00",
+      "quote_volume_30d": 126811373.61
+    },
+    {
+      "symbol": "SFPUSDT",
+      "base_asset": "SFP",
+      "onboard_date": "2021-02-24T07:00:00+00:00",
+      "quote_volume_30d": 121515544.01
+    },
+    {
+      "symbol": "SPELLUSDT",
+      "base_asset": "SPELL",
+      "onboard_date": "2022-09-05T07:00:00+00:00",
+      "quote_volume_30d": 119542488.96
+    },
+    {
+      "symbol": "AGLDUSDT",
+      "base_asset": "AGLD",
+      "onboard_date": "2023-07-29T02:30:00+00:00",
+      "quote_volume_30d": 115898479.2
+    },
+    {
+      "symbol": "CTSIUSDT",
+      "base_asset": "CTSI",
+      "onboard_date": "2021-10-25T07:00:00+00:00",
+      "quote_volume_30d": 112735668.91
+    },
+    {
+      "symbol": "DYMUSDT",
+      "base_asset": "DYM",
+      "onboard_date": "2024-02-07T07:00:00+00:00",
+      "quote_volume_30d": 111675322.0
+    },
+    {
+      "symbol": "GTCUSDT",
+      "base_asset": "GTC",
+      "onboard_date": "2021-03-15T07:00:00+00:00",
+      "quote_volume_30d": 105082928.1
+    },
+    {
+      "symbol": "CELRUSDT",
+      "base_asset": "CELR",
+      "onboard_date": "2021-03-29T07:00:00+00:00",
+      "quote_volume_30d": 101024062.08
+    },
+    {
+      "symbol": "1000XECUSDT",
+      "base_asset": "1000XEC",
+      "onboard_date": "2021-09-16T07:00:00+00:00",
+      "quote_volume_30d": 97208032.56
+    },
+    {
+      "symbol": "IOSTUSDT",
+      "base_asset": "IOST",
+      "onboard_date": "2020-02-21T08:05:00+00:00",
+      "quote_volume_30d": 94954641.15
+    },
+    {
+      "symbol": "ANKRUSDT",
+      "base_asset": "ANKR",
+      "onboard_date": "2021-01-25T07:00:00+00:00",
+      "quote_volume_30d": 94730324.63
+    },
+    {
+      "symbol": "OGNUSDT",
+      "base_asset": "OGN",
+      "onboard_date": "2021-03-31T07:00:00+00:00",
+      "quote_volume_30d": 90436156.19
+    },
+    {
+      "symbol": "TUSDT",
+      "base_asset": "T",
+      "onboard_date": "2023-01-31T07:00:00+00:00",
+      "quote_volume_30d": 89365373.03
+    },
+    {
+      "symbol": "GASUSDT",
+      "base_asset": "GAS",
+      "onboard_date": "2023-10-25T02:45:00+00:00",
+      "quote_volume_30d": 86143181.48
+    },
+    {
+      "symbol": "TNSRUSDT",
+      "base_asset": "TNSR",
+      "onboard_date": "2024-04-08T17:00:00+00:00",
+      "quote_volume_30d": 85737210.72
+    },
+    {
+      "symbol": "ARKUSDT",
+      "base_asset": "ARK",
+      "onboard_date": "2023-09-19T14:30:00+00:00",
+      "quote_volume_30d": 83820239.64
+    },
+    {
+      "symbol": "JOEUSDT",
+      "base_asset": "JOE",
+      "onboard_date": "2023-03-28T00:00:00+00:00",
+      "quote_volume_30d": 78997248.76
+    },
+    {
+      "symbol": "BICOUSDT",
+      "base_asset": "BICO",
+      "onboard_date": "2023-09-28T12:30:00+00:00",
+      "quote_volume_30d": 71234726.73
+    },
+    {
+      "symbol": "MOVRUSDT",
+      "base_asset": "MOVR",
+      "onboard_date": "2023-12-26T12:30:00+00:00",
+      "quote_volume_30d": 68862323.55
+    },
+    {
+      "symbol": "RONINUSDT",
+      "base_asset": "RONIN",
+      "onboard_date": "2024-02-06T04:30:00+00:00",
+      "quote_volume_30d": 68537410.31
+    },
+    {
+      "symbol": "POLYXUSDT",
+      "base_asset": "POLYX",
+      "onboard_date": "2023-10-25T02:30:00+00:00",
+      "quote_volume_30d": 68376699.39
+    },
+    {
+      "symbol": "ONGUSDT",
+      "base_asset": "ONG",
+      "onboard_date": "2023-11-27T13:00:00+00:00",
+      "quote_volume_30d": 58047168.75
+    },
+    {
+      "symbol": "BNTUSDT",
+      "base_asset": "BNT",
+      "onboard_date": "2023-08-10T12:00:00+00:00",
+      "quote_volume_30d": 54918866.06
+    },
+    {
+      "symbol": "MTLUSDT",
+      "base_asset": "MTL",
+      "onboard_date": "2021-03-31T07:00:00+00:00",
+      "quote_volume_30d": 54803825.75
+    },
+    {
+      "symbol": "LSKUSDT",
+      "base_asset": "LSK",
+      "onboard_date": "2024-01-25T14:15:00+00:00",
+      "quote_volume_30d": 54181762.64
+    },
+    {
+      "symbol": "DODOXUSDT",
+      "base_asset": "DODOX",
+      "onboard_date": "2023-08-08T12:00:00+00:00",
+      "quote_volume_30d": 53182803.34
+    },
+    {
+      "symbol": "POWRUSDT",
+      "base_asset": "POWR",
+      "onboard_date": "2023-10-27T02:30:00+00:00",
+      "quote_volume_30d": 51589364.62
+    },
+    {
+      "symbol": "STEEMUSDT",
+      "base_asset": "STEEM",
+      "onboard_date": "2023-11-08T14:30:00+00:00",
+      "quote_volume_30d": 48101575.83
+    },
+    {
+      "symbol": "WAXPUSDT",
+      "base_asset": "WAXP",
+      "onboard_date": "2023-10-18T14:45:00+00:00",
+      "quote_volume_30d": 47461453.22
+    },
+    {
+      "symbol": "ETHWUSDT",
+      "base_asset": "ETHW",
+      "onboard_date": "2023-11-28T12:30:00+00:00",
+      "quote_volume_30d": 46848725.32
+    },
+    {
+      "symbol": "RIFUSDT",
+      "base_asset": "RIF",
+      "onboard_date": "2023-10-21T12:30:00+00:00",
+      "quote_volume_30d": 36881573.96
+    }
+  ]
+}
