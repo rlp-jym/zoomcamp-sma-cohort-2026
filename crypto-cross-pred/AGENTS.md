@@ -51,6 +51,14 @@ uv run ruff check --fix scripts/      # nbconvert emits a redundant coding line
 uv run python scripts/00_smoke.py
 ```
 
+Dashboard (read-only; shows whatever artifacts exist):
+
+```bash
+uv run python -m crypto_cross_pred.cli status      # same data, in the terminal
+uv run python scripts/seed_demo_artifacts.py       # synthetic files for UI inspection
+uv run streamlit run app/streamlit_app.py
+```
+
 Pipeline entry points (target shape):
 
 ```bash
