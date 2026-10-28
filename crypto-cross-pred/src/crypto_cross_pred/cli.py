@@ -12,6 +12,7 @@ from crypto_cross_pred.config import PROJECT_ROOT, get_settings
 from crypto_cross_pred.data import download as download_module
 from crypto_cross_pred.data.universe import load_universe
 from crypto_cross_pred.io.artifacts import artifact_status, newest_artifact_mtime
+from crypto_cross_pred.report import quality
 
 DEFAULT_UNIVERSE_FILE = PROJECT_ROOT / "config" / "universe.json"
 
@@ -82,9 +83,7 @@ def _cmd_download(args: argparse.Namespace) -> int:
 
     if args.incremental:
         print(f"incremental: {len(symbols)} symbols")
-        results = download_module.incremental(
-            symbols, raw_dir=paths.raw_dir, workers=args.workers
-        )
+        results = download_module.incremental(symbols, raw_dir=paths.raw_dir, workers=args.workers)
         added_klines = sum(item["klines"] for _, item in results)
         added_funding = sum(item["funding"] for _, item in results)
         print()
@@ -120,6 +119,25 @@ def _cmd_download(args: argparse.Namespace) -> int:
     return 0
 
 
+def _cmd_quality() -> int:
+    """Build, print and save the data quality report."""
+    settings = get_settings()
+    paths = settings.paths.resolve()
+
+    if not DEFAULT_UNIVERSE_FILE.exists():
+        raise FileNotFoundError(f"{DEFAULT_UNIVERSE_FILE} not found")
+    symbols = [entry.symbol for entry in load_universe(DEFAULT_UNIVERSE_FILE)]
+
+    frame = quality.build(paths.raw_dir, symbols)
+    summary = quality.summarize(frame)
+    parquet_path, json_path = quality.save(frame, summary, paths.artifacts_dir)
+
+    print(quality.render(frame, summary))
+    print()
+    print(f"saved {parquet_path.name} and {json_path.name} to {paths.artifacts_dir}")
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     """Build the argument parser."""
     parser = argparse.ArgumentParser(
@@ -129,6 +147,7 @@ def build_parser() -> argparse.ArgumentParser:
     subparsers = parser.add_subparsers(dest="command", required=True)
     subparsers.add_parser("config", help="print the resolved configuration as JSON")
     subparsers.add_parser("status", help=_HELP["status"])
+    subparsers.add_parser("quality", help="coverage, gaps and null rates per symbol")
 
     for stage in (*STAGES, "all"):
         stage_parser = subparsers.add_parser(stage, help=_HELP[stage])
@@ -196,6 +215,9 @@ def main(argv: Sequence[str] | None = None) -> int:
 
     if args.command == "download":
         return _cmd_download(args)
+
+    if args.command == "quality":
+        return _cmd_quality()
 
     raise NotImplementedError(
         f"stage '{args.command}' is not implemented yet; see docs/TASKS.md for its task"

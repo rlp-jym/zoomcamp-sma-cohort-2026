@@ -342,6 +342,7 @@ def fetch_klines_rest(
     frame["trades"] = frame["trades"].astype("int64")
     return frame[["ts", *numeric, "trades"]].drop_duplicates(subset=["ts"]).sort_values("ts")
 
+
 def _drop_incomplete_bars(frame: pd.DataFrame, *, now: datetime) -> pd.DataFrame:
     """Drop the current, still-open hourly bar."""
     if frame.empty:
@@ -378,9 +379,7 @@ def incremental_symbol(
     if last_funding is None:
         added["funding"] = 0
     else:
-        records = binance.funding_history(
-            _session(), symbol, start_time=last_funding, end_time=now
-        )
+        records = binance.funding_history(_session(), symbol, start_time=last_funding, end_time=now)
         if records:
             frame = pd.DataFrame(records)
             frame["ts"] = pd.to_datetime(frame["fundingTime"], unit="ms", utc=True)

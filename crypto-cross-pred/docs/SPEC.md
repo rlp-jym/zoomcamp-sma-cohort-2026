@@ -347,8 +347,9 @@ regime; inspect the worst predictions; list concrete improvement ideas derived f
 download | transform | features | train | predict | simulate | notify | all
 ```
 
-Plus two inspection commands that are not pipeline stages: `config` (resolved settings)
-and `status` (which artifacts exist, how many rows, newest file).
+Plus three inspection commands that are not pipeline stages: `config` (resolved settings),
+`status` (which artifacts exist, how many rows, newest file) and `quality` (per-symbol
+coverage, gaps and null rates).
 
 **Two regimes (rubric 6.4):**
 - `--source hf` — pull a prebuilt dataset snapshot from HF Datasets (fast, reproducible, no refresh)
