@@ -33,8 +33,6 @@ SCHEMA: dict[str, str] = {
     "open_interest": "open interest",
     "ls_ratio_account": "long/short account ratio",
     "ls_ratio_position": "long/short position ratio",
-    "liq_long_volume": "liquidations, long side",
-    "liq_short_volume": "liquidations, short side",
     "fng": "Fear & Greed index, 0-100",
     "vix": "CBOE VIX close (lagged 1 day)",
     "dgs10": "10Y Treasury yield, percent (lagged 1 day)",
@@ -88,10 +86,6 @@ DERIVATIVES_FEATURES: tuple[str, ...] = (
     "ls_ratio_account",
     "ls_ratio_position",
     "ls_ratio_z_7d",
-    "liq_long_vol_24h",
-    "liq_short_vol_24h",
-    "liq_imbalance",
-    "liq_z_7d",
 )
 
 CROSS_SECTIONAL_FEATURES: tuple[str, ...] = (
