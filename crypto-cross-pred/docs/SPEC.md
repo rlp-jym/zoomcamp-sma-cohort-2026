@@ -166,8 +166,6 @@ funding_rate      float     current funding rate (8h cadence, forward-filled)
 open_interest     float
 ls_ratio_account  float     long/short account ratio
 ls_ratio_position float     long/short position ratio
-liq_long_volume   float     liquidations, long side
-liq_short_volume  float     liquidations, short side
 fng               float     Fear & Greed, 0-100
 vix               float     CBOE VIX close (lagged 1 day)
 dgs10             float     10Y Treasury yield, % (lagged 1 day)
@@ -190,8 +188,10 @@ rsi_14, macd_hist, ma_ratio_24h, ma_ratio_7d, skew_24h, kurt_24h, autocorr_1h_24
 **Derivatives**
 `funding_rate, funding_ma_8, funding_z_7d, funding_cum_24h,
 oi_change_1h, oi_change_24h, oi_z_7d, oi_to_volume,
-ls_ratio_account, ls_ratio_position, ls_ratio_z_7d,
-liq_long_vol_24h, liq_short_vol_24h, liq_imbalance, liq_z_7d`
+ls_ratio_account, ls_ratio_position, ls_ratio_z_7d`
+
+> Liquidations are **excluded**: Binance publishes no historical liquidation archive, and
+> the REST endpoint only covers the last few days. See DECISIONS §7.
 
 **Cross-sectional (computed per timestamp across the universe)**
 `cs_rank_ret_24h, cs_rank_vol_24h, cs_rank_funding, cs_rank_oi_change,

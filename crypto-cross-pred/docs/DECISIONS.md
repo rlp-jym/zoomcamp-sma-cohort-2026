@@ -147,6 +147,7 @@ exists** (D-30).
 | Separate template package/repo | Turns a course project into a library project; high refactor risk, low rubric value |
 | LSTM / sentiment / on-chain features | Scope creep; each adds a failure mode the timeline cannot absorb |
 | XGBoost / Keras NN / ARIMA | Beyond the course's model set and not needed for any point (D-36). XGBoost and the neural-net family are reserved for the ML Zoomcamp project; ARIMA is univariate and cannot rank a 200-symbol cross-section |
+| Liquidation features | Binance publishes no historical liquidation archive for USD-M futures, and `/fapi/v1/allForceOrders` only returns the last few days. The four features cannot be backfilled for 2021-2026, so they are dropped rather than shipped as all-NaN columns (SPEC §4.3) |
 | Real-money broker integration | Unnecessary risk; testnet satisfies the bonus criterion |
 
 ---
