@@ -57,6 +57,9 @@ METRICS_COLUMNS = [
     "taker_volume_ratio",
 ]
 
+#: The archive publishes metrics every 5 minutes; we store them hourly (D-38).
+METRICS_RESAMPLE_RULE = "1h"
+
 _thread_local = threading.local()
 
 
@@ -181,7 +184,12 @@ def parse_funding_csv(lines: list[str]) -> pd.DataFrame:
 
 
 def parse_metrics_csv(lines: list[str]) -> pd.DataFrame:
-    """Parse daily metrics (5-minute cadence), dropping the duplicated rows."""
+    """Parse daily metrics and aggregate the 5-minute snapshots to hourly.
+
+    The archive only publishes 5-minute files, but hourly is the project's minimum
+    resolution (D-38). For each hour we keep the **last** snapshot inside it (``:55``),
+    which is the value closest to that hourly bar's close.
+    """
     if not lines:
         return pd.DataFrame()
     frame = pd.read_csv(io.StringIO("\n".join(lines)))
@@ -200,7 +208,9 @@ def parse_metrics_csv(lines: list[str]) -> pd.DataFrame:
             "sum_taker_long_short_vol_ratio": "taker_volume_ratio",
         }
     )
-    frame = frame.drop_duplicates(subset=["ts"], keep="last").sort_values("ts")
+    frame = frame.drop_duplicates(subset=["ts"], keep="last").sort_values("ts", kind="stable")
+    frame["ts"] = frame["ts"].dt.floor(METRICS_RESAMPLE_RULE)
+    frame = frame.drop_duplicates(subset=["ts"], keep="last")
     return frame.reset_index(drop=True)
 
 

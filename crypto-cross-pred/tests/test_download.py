@@ -102,6 +102,29 @@ def test_parse_metrics_deduplicates_rows() -> None:
     assert frame["open_interest"].iloc[0] == 33787.33
 
 
+def test_metrics_are_aggregated_to_hourly() -> None:
+    header = (
+        "create_time,symbol,sum_open_interest,sum_open_interest_value,"
+        "count_toptrader_long_short_ratio,sum_toptrader_long_short_ratio,"
+        "count_long_short_ratio,sum_taker_long_short_vol_ratio"
+    )
+    rows = [
+        f"2021-01-04 00:{minute:02d}:00,BTCUSDT,{minute},{minute * 10},1,1,1,1"
+        for minute in range(0, 60, 5)
+    ]
+    rows.append("2021-01-04 01:00:00,BTCUSDT,999,9990,1,1,1,1")
+
+    frame = download.parse_metrics_csv([header, *rows])
+
+    assert len(frame) == 2
+    assert frame["ts"].tolist() == [
+        pd.Timestamp("2021-01-04T00:00Z"),
+        pd.Timestamp("2021-01-04T01:00Z"),
+    ]
+    # the last snapshot inside the hour wins
+    assert frame["open_interest"].tolist() == [55, 999]
+
+
 def test_empty_payloads_return_empty_frames() -> None:
     assert download.parse_klines_csv([]).empty
     assert download.parse_funding_csv([]).empty
