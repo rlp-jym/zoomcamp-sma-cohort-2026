@@ -56,7 +56,7 @@ Dashboard (read-only; shows whatever artifacts exist):
 ```bash
 uv run python -m crypto_cross_pred.cli status      # same data, in the terminal
 uv run python scripts/seed_demo_artifacts.py       # synthetic files for UI inspection
-uv run streamlit run app/streamlit_app.py
+uv run streamlit run app/streamlit_app.py          # or double-click run_app.bat
 ```
 
 Pipeline entry points (target shape):
