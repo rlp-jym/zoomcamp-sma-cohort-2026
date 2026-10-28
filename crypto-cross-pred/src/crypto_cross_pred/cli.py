@@ -5,9 +5,14 @@ from __future__ import annotations
 import argparse
 import sys
 from collections.abc import Sequence
+from datetime import date
 
-from crypto_cross_pred.config import get_settings
+from crypto_cross_pred.config import PROJECT_ROOT, get_settings
+from crypto_cross_pred.data import download as download_module
+from crypto_cross_pred.data.universe import load_universe
 from crypto_cross_pred.io.artifacts import artifact_status, newest_artifact_mtime
+
+DEFAULT_UNIVERSE_FILE = PROJECT_ROOT / "config" / "universe.json"
 
 #: Pipeline stages, in execution order. ``all`` runs them end to end.
 STAGES: tuple[str, ...] = (
@@ -50,6 +55,58 @@ def _print_status() -> int:
     return 0
 
 
+def _cmd_download(args: argparse.Namespace) -> int:
+    """Backfill raw data from the Binance archive."""
+    if args.source == "hf":
+        raise NotImplementedError("--source hf arrives with P1-08 (Hugging Face snapshot)")
+
+    settings = get_settings()
+    paths = settings.paths.resolve()
+
+    if args.symbols:
+        symbols = [item.strip() for item in args.symbols.split(",") if item.strip()]
+    else:
+        if not DEFAULT_UNIVERSE_FILE.exists():
+            raise FileNotFoundError(
+                f"{DEFAULT_UNIVERSE_FILE} not found; run the universe selection first"
+            )
+        symbols = [entry.symbol for entry in load_universe(DEFAULT_UNIVERSE_FILE)]
+
+    if args.limit:
+        symbols = symbols[: args.limit]
+
+    start = date.fromisoformat(args.since) if args.since else settings.dates.dev_start
+    end = min(settings.dates.holdout_end, date.today())
+    datasets = tuple(item.strip() for item in args.datasets.split(",") if item.strip())
+
+    print(f"symbols: {len(symbols)}  {symbols[:3]}{'...' if len(symbols) > 3 else ''}")
+    print(f"period:  {start} -> {end}")
+    print(f"datasets: {', '.join(datasets)}")
+
+    results = download_module.backfill(
+        symbols,
+        start=start,
+        end=end,
+        raw_dir=paths.raw_dir,
+        datasets=datasets,
+        workers=args.workers,
+    )
+
+    header = f"{'dataset':<10}{'symbols':>9}{'files':>9}{'rows':>14}{'new':>14}"
+    print()
+    print(header)
+    print("-" * len(header))
+    for dataset in datasets:
+        rows = [item for item in results if item.dataset == dataset]
+        print(
+            f"{dataset:<10}{len(rows):>9}"
+            f"{sum(item.files for item in rows):>9}"
+            f"{sum(item.rows for item in rows):>14,}"
+            f"{sum(item.added for item in rows):>14,}"
+        )
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     """Build the argument parser."""
     parser = argparse.ArgumentParser(
@@ -76,6 +133,28 @@ def build_parser() -> argparse.ArgumentParser:
                 default=None,
                 help="earliest date to backfill (default: config dev_start)",
             )
+            stage_parser.add_argument(
+                "--symbols",
+                default=None,
+                help="comma-separated symbols (default: config/universe.json)",
+            )
+            stage_parser.add_argument(
+                "--datasets",
+                default=",".join(download_module.DATASETS),
+                help="comma-separated subset of " + ",".join(download_module.DATASETS),
+            )
+            stage_parser.add_argument(
+                "--limit",
+                type=int,
+                default=None,
+                help="only the first N symbols (smoke tests)",
+            )
+            stage_parser.add_argument(
+                "--workers",
+                type=int,
+                default=4,
+                help="parallel downloads (default: 4)",
+            )
 
     return parser
 
@@ -90,6 +169,9 @@ def main(argv: Sequence[str] | None = None) -> int:
 
     if args.command == "status":
         return _print_status()
+
+    if args.command == "download":
+        return _cmd_download(args)
 
     raise NotImplementedError(
         f"stage '{args.command}' is not implemented yet; see docs/TASKS.md for its task"
