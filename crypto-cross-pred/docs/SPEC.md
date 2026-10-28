@@ -265,9 +265,12 @@ not inside the walk-forward loop (to keep runtime sane); hyperparameters are the
 for all walk-forward folds. Document this choice.
 
 **Decision rules (rubric 4.3):**
-- Long when `p_top_quintile >= 0.25` and `pred_excess_return > 0`
-- Short when `p_top_quintile <= 0.05` and `pred_excess_return < 0`
-- Position size scales with `p_top_quintile` (conviction weighting)
+- Long when `p_top >= 0.25` and `pred_reg > 0`
+- Short when `p_top <= 0.05` and `pred_reg < 0`
+- Position size scales with `p_top` (conviction weighting)
+
+Column names are the artifact contract (§8.1): `p_top` is the probability of top-quintile
+membership, `pred_reg` the predicted cross-sectional excess return.
 
 ---
 
@@ -339,6 +342,9 @@ regime; inspect the worst predictions; list concrete improvement ideas derived f
 download | transform | features | train | predict | simulate | notify | all
 ```
 
+Plus two inspection commands that are not pipeline stages: `config` (resolved settings)
+and `status` (which artifacts exist, how many rows, newest file).
+
 **Two regimes (rubric 6.4):**
 - `--source hf` — pull a prebuilt dataset snapshot from HF Datasets (fast, reproducible, no refresh)
 - `--source binance` — download fresh data, incremental from the last stored timestamp
@@ -354,6 +360,46 @@ reading the latest artifacts from HF Datasets.
 
 **Bonus:** Telegram alerts (daily picks, PnL, drift warnings); Binance **testnet** order
 placement (paper only, no real funds).
+
+### 8.1 Artifact schemas
+
+These are contracts: the pipeline writes them, the app and the CLI read them. Nothing
+downstream of them recomputes a signal.
+
+**`predictions/{YYYY-MM-DD}.parquet`** — one row per `(ts, symbol)` for the decision
+timestamp; `ts` is when the decision was made, never the label time.
+
+| Column | Type | Meaning |
+|---|---|---|
+| `symbol` | str | contract symbol |
+| `ts` | datetime | decision timestamp, UTC |
+| `pred_reg` | float | predicted `cs_excess_ret_24h` |
+| `p_top` | float | probability of top-quintile membership |
+| `rank_reg` | int | cross-sectional rank by `pred_reg`, 1 = best |
+| `decile` | int | decile by `pred_reg`, 10 = best |
+| `w_sim0` | float | target weight under sim0 (funding-carry) |
+| `w_sim1` | float | target weight under sim1 (long-only) |
+| `w_sim2` | float | target weight under sim2 (long-short) |
+| `w_sim3` | float | target weight under sim3 (risk-managed) |
+
+Weights are signed and sum to the strategy's target exposure; 0 means no position.
+`pred_reg` and `p_top` are NaN when the model has no prediction for that row.
+
+**`sim/{strategy}_{YYYY-MM-DD}.parquet`** — one row per `ts`, where `strategy` is
+`sim0`…`sim3` or a benchmark name (`btc_hodl`, `ew_basket`, `cash`).
+
+| Column | Type | Meaning |
+|---|---|---|
+| `ts` | datetime | UTC |
+| `equity` | float | portfolio value, starting at 1.0 |
+| `gross_ret` | float | return before costs |
+| `net_ret` | float | return after costs and funding |
+| `turnover` | float | traded notional / equity |
+| `n_positions` | int | open positions |
+| `net_exposure` | float | signed exposure / equity |
+
+**`processed/dataset_{YYYY-MM-DD}.parquet`** — the unified schema (§4.2) plus the feature
+families (§4.3) and labels (§4.4). No artifact carries a column outside these contracts.
 
 ---
 
@@ -377,7 +423,7 @@ crypto-cross-pred/
 ├── config/config.yaml
 ├── src/crypto_cross_pred/
 │   ├── config.py
-│   ├── io/          binance.py, fred.py, huggingface.py, storage.py
+│   ├── io/          binance.py, fred.py, huggingface.py, storage.py, artifacts.py
 │   ├── data/        download.py, transform.py, features.py, labels.py
 │   ├── models/      validate.py, tuning.py, train.py, predict.py
 │   ├── sim/         vector.py, exact.py, metrics.py

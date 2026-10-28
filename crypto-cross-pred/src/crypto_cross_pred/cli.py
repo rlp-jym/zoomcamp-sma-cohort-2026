@@ -7,6 +7,7 @@ import sys
 from collections.abc import Sequence
 
 from crypto_cross_pred.config import get_settings
+from crypto_cross_pred.io.artifacts import artifact_status, newest_artifact_mtime
 
 #: Pipeline stages, in execution order. ``all`` runs them end to end.
 STAGES: tuple[str, ...] = (
@@ -28,7 +29,25 @@ _HELP: dict[str, str] = {
     "simulate": "run the trading simulations",
     "notify": "send alerts",
     "all": "run every stage in order",
+    "status": "show which artifacts exist on disk",
 }
+
+
+def _print_status() -> int:
+    """Print one line per artifact family."""
+    header = f"{'artifact':<14}{'files':>7}{'rows':>12}  {'latest':<30}"
+    print(header)
+    print("-" * len(header))
+    for info in artifact_status():
+        print(f"{info.name:<14}{info.files:>7}{info.rows:>12,}  {info.latest_name:<30}")
+
+    written = newest_artifact_mtime()
+    print()
+    if written is None:
+        print("no artifacts yet - start with: cli download --source binance")
+    else:
+        print(f"newest artifact written: {written:%Y-%m-%d %H:%M:%S} UTC")
+    return 0
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -39,6 +58,7 @@ def build_parser() -> argparse.ArgumentParser:
     )
     subparsers = parser.add_subparsers(dest="command", required=True)
     subparsers.add_parser("config", help="print the resolved configuration as JSON")
+    subparsers.add_parser("status", help=_HELP["status"])
 
     for stage in (*STAGES, "all"):
         stage_parser = subparsers.add_parser(stage, help=_HELP[stage])
@@ -67,6 +87,9 @@ def main(argv: Sequence[str] | None = None) -> int:
     if args.command == "config":
         print(get_settings().model_dump_json(indent=2))
         return 0
+
+    if args.command == "status":
+        return _print_status()
 
     raise NotImplementedError(
         f"stage '{args.command}' is not implemented yet; see docs/TASKS.md for its task"
