@@ -168,6 +168,32 @@ TO_PREDICT_REG: tuple[str, ...] = ("cs_excess_ret_24h",)
 TO_PREDICT_CLF: tuple[str, ...] = ("is_top_quintile",)
 LABELS: tuple[str, ...] = ("fwd_ret_24h",) + TO_PREDICT_REG + TO_PREDICT_CLF
 
+# --- Artifacts (docs/SPEC.md section 8.1) ----------------------------------------
+
+STRATEGIES: tuple[str, ...] = ("sim0", "sim1", "sim2", "sim3")
+BENCHMARKS: tuple[str, ...] = ("btc_hodl", "ew_basket", "cash")
+
+WEIGHT_COLUMNS: tuple[str, ...] = tuple(f"w_{name}" for name in STRATEGIES)
+
+PREDICTION_COLUMNS: tuple[str, ...] = (
+    "symbol",
+    "ts",
+    "pred_reg",
+    "p_top",
+    "rank_reg",
+    "decile",
+) + WEIGHT_COLUMNS
+
+SIM_EQUITY_COLUMNS: tuple[str, ...] = (
+    "ts",
+    "equity",
+    "gross_ret",
+    "net_ret",
+    "turnover",
+    "n_positions",
+    "net_exposure",
+)
+
 
 def missing_columns(df: pd.DataFrame) -> tuple[str, ...]:
     """Return the schema columns absent from ``df``, in canonical order."""
