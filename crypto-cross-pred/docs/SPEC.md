@@ -176,6 +176,11 @@ hy_oas            float     ICE BofA US High Yield option-adjusted spread, % (la
 
 Primary key: `(symbol, ts)`. Stored as partitioned parquet on HF Datasets.
 
+Two columns arrive at finer cadence than the hourly grid: `funding_rate` every 8 hours,
+and `open_interest` / `ls_ratio_*` every 5 minutes in the archive. Both are aligned to the
+hour. Metrics keep the **last snapshot inside each hour** (`:55`), so they sit 5 minutes
+behind the bar close — consistently, for every symbol and every hour (D-38).
+
 ### 4.3 Feature families (60+ features)
 
 **Price / volume (per symbol)**
