@@ -1,5 +1,6 @@
 # Data — never committed (see docs/AGENTS.md)
-data/
+# Anchored to the project root so it does not swallow src/crypto_cross_pred/data/
+/data/
 *.parquet
 *.zip
 
@@ -8,6 +9,13 @@ data/
 __pycache__/
 *.py[cod]
 .ipynb_checkpoints/
+
+# Build / tool caches
+.ruff_cache/
+.pytest_cache/
+build/
+dist/
+*.egg-info/
 
 # Secrets
 .env

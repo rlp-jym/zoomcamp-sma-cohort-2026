@@ -1,0 +1,57 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "crypto-cross-pred"
+version = "0.1.0"
+description = "Cross-sectional return prediction for Binance USD-M perpetual futures"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "pandas>=2.2",
+    "numpy>=1.26",
+    "scikit-learn>=1.4",
+    "optuna>=3.6",
+    "pyarrow>=15",
+    "duckdb>=1.0",
+    "requests>=2.31",
+    "pydantic-settings>=2.2",
+    "pyyaml>=6.0",
+    "pandas-datareader>=0.10",
+    "tqdm>=4.66",
+    "huggingface-hub>=0.23",
+]
+
+[dependency-groups]
+dev = [
+    "ruff>=0.5",
+    "pytest>=8",
+]
+notebook = [
+    "jupyter>=1.0",
+    "nbconvert>=7.16",
+    "matplotlib>=3.8",
+]
+app = [
+    "streamlit>=1.35",
+    "plotly>=5.22",
+]
+# Empty on purpose: P8-01 uses core `requests` (D-19 recommends raw HTTP over
+# python-telegram-bot). Add a library here only if that decision changes.
+bonus = []
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/crypto_cross_pred"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
