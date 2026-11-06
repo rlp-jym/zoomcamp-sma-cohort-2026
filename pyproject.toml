@@ -19,3 +19,9 @@ dependencies = [
     "tqdm>=4.70.1",
     "yfinance>=1.7.0",
 ]
+
+# One environment and one lockfile for the whole repo. Homework notebooks and
+# `crypto-cross-pred/` share the root `.venv`; the member keeps its own
+# pyproject.toml for its dependency list.
+[tool.uv.workspace]
+members = ["crypto-cross-pred"]
