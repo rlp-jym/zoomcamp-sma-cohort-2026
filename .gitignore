@@ -1,3 +1,4 @@
+project_1/_ignore_me/*
 *.parquet
 
 # Byte-compiled / optimized / DLL files

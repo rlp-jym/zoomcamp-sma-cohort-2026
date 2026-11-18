@@ -1,0 +1,5 @@
+data/
+_notes/
+config/sec_tickers.csv
+__pycache__/
+*.pyc
