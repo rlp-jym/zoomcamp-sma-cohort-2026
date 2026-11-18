@@ -26,7 +26,10 @@ def files() -> list[Path]:
 
 @pytest.fixture(scope="module")
 def spy() -> pd.DataFrame:
-    return pd.read_parquet(PRICES / "SPY.parquet")
+    path = PRICES / "SPY.parquet"
+    if not path.exists():
+        pytest.skip("no price files - run `python -m breadth.prices`")
+    return pd.read_parquet(path)
 
 
 def test_columns_and_dtypes(spy: pd.DataFrame) -> None:
