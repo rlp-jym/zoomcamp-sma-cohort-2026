@@ -220,3 +220,13 @@ __marimo__/
 # Streamlit
 .streamlit/secrets.toml
 crypto-cross-pred/
+
+# local-only dashboard and runtime state, not part of the submission
+index-breadth-momentum/app.py
+index-breadth-momentum/Dockerfile
+index-breadth-momentum/.dockerignore
+index-breadth-momentum/requirements-serve.txt
+index-breadth-momentum/run_app.bat
+index-breadth-momentum/run_docker.bat
+index-breadth-momentum/docs/results.json
+index-breadth-momentum/local_data/

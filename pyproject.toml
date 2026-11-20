@@ -24,7 +24,8 @@ dependencies = [
 ]
 
 # One environment and one lockfile for the whole repo. Homework notebooks and
-# `crypto-cross-pred/` share the root `.venv`; the member keeps its own
-# pyproject.toml for its dependency list.
+# `index-breadth-momentum/` share the root `.venv`. The crypto project is kept
+# local only (gitignored) and manages its own environment from its own
+# pyproject.toml, so it is deliberately not a workspace member.
 [tool.uv.workspace]
-members = ["crypto-cross-pred"]
+members = []
