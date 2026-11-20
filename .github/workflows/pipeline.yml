@@ -43,7 +43,8 @@ jobs:
 
       - name: Install
         if: steps.ready.outputs.ready == 'true'
-        run: uv sync --all-groups
+        working-directory: .
+        run: uv sync --all-packages --all-groups
 
       - name: Run pipeline
         if: steps.ready.outputs.ready == 'true'

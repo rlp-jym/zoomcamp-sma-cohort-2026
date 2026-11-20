@@ -30,16 +30,17 @@ else) → **docs/TASKS.md** (what's next) → this file (how).
 
 ## 2. Environment and commands
 
-The project is a **standalone `uv` project** rooted at `crypto-cross-pred/` (separate from the
-homework `pyproject.toml` at the repo root). Python 3.12+.
+The project is a **`uv` workspace member**: its own `pyproject.toml` lives at
+`crypto-cross-pred/`, but the environment and lockfile are shared at the repository root
+(`pyproject.toml` there declares `members = ["crypto-cross-pred"]`). Python 3.12+.
+
+Sync from the **repository root**; run project commands from the project directory:
 
 ```bash
-cd crypto-cross-pred
-uv sync                      # install runtime deps
-uv sync --all-groups         # include dev + app + notebook groups
+uv sync --all-packages --all-groups          # one env for the whole workspace
 uv run python -m crypto_cross_pred.cli --help
-uv run ruff check . && uv run ruff format --check .
-uv run pytest -q
+cd crypto-cross-pred && uv run ruff check . && uv run ruff format --check .
+cd crypto-cross-pred && uv run pytest -q
 ```
 
 Notebooks (once: register the kernel; then every notebook change: export and lint):

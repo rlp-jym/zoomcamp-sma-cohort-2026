@@ -1,0 +1,15 @@
+name,ticker,median,n_priced,ok
+"Adobe Systems, Inc",ADBE,0.9999999667668665,10,True
+American Tower Corp. REIT,AMT,1.0000000255032844,7,True
+"Mattel, Inc",MAT,1.0000000003891598,10,True
+NXP Semiconductors NV,NXPI,1.000000009718585,22,True
+"Simon Property Group, Inc. REIT",SPG,1.0000000076638702,7,True
+Torchmark Corp,GL,1.0000000150406392,10,True
+United Technologies Corp,RTX,0.999999989745091,13,True
+"Wal Mart Stores, Inc",WMT,1.0000000013698067,7,True
+"Wal-Mart Stores, Inc",WMT,1.0000000013698067,7,True
+AvalonBay Communities Inc,AVB,,0,False
+Discover Financial Services,DFS,,0,False
+Electronic Arts Inc,EA,,0,False
+Kellogg Co,K,,0,False
+Raytheon Co,RTN,,0,False

@@ -427,7 +427,7 @@ crypto-cross-pred/
 │   ├── SPEC.md                 # what the system must do (this file)
 │   ├── DECISIONS.md            # why; decision log + rejected alternatives
 │   └── TASKS.md                # build plan
-├── pyproject.toml              # standalone uv project (see D-18)
+├── pyproject.toml              # uv workspace member (see D-40)
 ├── Dockerfile
 ├── docker-compose.yml
 ├── .env.example
