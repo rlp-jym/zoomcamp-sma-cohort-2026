@@ -98,19 +98,30 @@ strictly completed sessions.
 ## The message
 
 ```
-Index Breadth Momentum Alert
-2026-11-20 18:13 EST
-Action: BUY
+INDEX BREADTH MOMENTUM
+2026-11-20 18:34 EST
+
+ACTION: BUY
 
 Model output
-Score: +0.37R - predicted 5-day move, threshold +0.00R
-Expectancy: 0.14R - avg R on 510 validation days above threshold
-Probability of gain: 0.62 - share of the 300 trees expecting a gain
+Score: +0.37R
+  predicted 5-day move (threshold +0.00R)
+
+Expectancy: 0.14R
+  avg R on 510 validation days above threshold
+
+Probability of gain: 0.62
+  share of the 300 trees expecting a gain
 
 Top drivers
-med_atr_pct_60d: 2.93% - median 60-day ATR across constituents
-breadth_sma_5d_chg_5d: -51.9pp - 5-day change in 5-day breadth
-breadth_rsi30_20d: 17% - weighted share with RSI below 30, 20-day
+med_atr_pct_60d: 2.93%
+  median 60-day ATR across constituents
+
+breadth_sma_5d_chg_5d: -51.9pp
+  5-day change in 5-day breadth
+
+breadth_rsi30_20d: 17%
+  weighted share with RSI below 30, 20-day
 
 Risk at 1.77% ATR
 0.25% risk -> 14% equity

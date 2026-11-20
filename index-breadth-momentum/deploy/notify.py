@@ -22,17 +22,20 @@ def format_message(p: dict) -> str:
     size_lines = "\n".join(
         f"{risk:.2f}% risk -> {p['sizes'][risk]:.0f}% equity" for risk in config.RISK_LEVELS
     )
-    drivers = "\n".join(
-        f"{row['label']}: {row['value']} - {row['note']}" for row in p["drivers"]
+    drivers = "\n\n".join(
+        f"{row['label']}: {row['value']}\n  {row['note']}" for row in p["drivers"]
     )
     return (
-        "<b>Index Breadth Momentum Alert</b>\n"
-        f"{p['stamp']}\n"
-        f"Action: <b>{p['action']}</b>\n\n"
+        "<b>INDEX BREADTH MOMENTUM</b>\n"
+        f"{p['stamp']}\n\n"
+        f"<b>ACTION: {p['action']}</b>\n\n"
         "<b>Model output</b>\n"
-        f"Score: {p['score']:+.2f}R - predicted 5-day move, threshold {p['threshold']:+.2f}R\n"
-        f"Expectancy: {p['expectancy']:.2f}R - {p['expectancy_note']}\n"
-        f"Probability of gain: {p['probability']:.2f} - {p['probability_note']}\n\n"
+        f"Score: {p['score']:+.2f}R\n"
+        f"  predicted 5-day move (threshold {p['threshold']:+.2f}R)\n\n"
+        f"Expectancy: {p['expectancy']:.2f}R\n"
+        f"  {p['expectancy_note']}\n\n"
+        f"Probability of gain: {p['probability']:.2f}\n"
+        f"  {p['probability_note']}\n\n"
         "<b>Top drivers</b>\n"
         f"{drivers}\n\n"
         f"<b>Risk at {p['atr_pct']:.2f}% ATR</b>\n"
