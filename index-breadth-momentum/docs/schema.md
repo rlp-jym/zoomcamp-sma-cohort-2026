@@ -207,6 +207,7 @@ only input breadth features may read. 1.56M rows, 2014-06-02 -> 2026-11-17.
 | `name` | string | issuer name from the active filing |
 | `ticker` | string/null | null when the mapping failed or the row was excluded |
 | `close` | float/null | split-adjusted price on that day |
+| `open`, `high`, `low` | float/null | split-adjusted, from the same price file |
 | `adj_close` | float/null | total-return series |
 | `volume` | int64/null | shares traded; `volume x close` = `turnover_value` |
 | `index_weight` | float | share of the index, from the active filing |

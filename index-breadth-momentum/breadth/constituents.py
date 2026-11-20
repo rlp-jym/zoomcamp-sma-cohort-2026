@@ -32,7 +32,7 @@ def _prices() -> pd.DataFrame:
     for path in prices.DIR.glob("*.parquet"):
         if path.stem in odd:
             continue
-        d = pd.read_parquet(path, columns=["date", "close", "adj_close", "volume"])
+        d = pd.read_parquet(path, columns=["date", "open", "high", "low", "close", "adj_close", "volume"])
         d["ticker"] = path.stem
         frames.append(d)
     px = pd.concat(frames, ignore_index=True)
@@ -92,6 +92,9 @@ def build() -> pd.DataFrame:
         "issuer_id",
         "name",
         "ticker",
+        "open",
+        "high",
+        "low",
         "close",
         "adj_close",
         "volume",

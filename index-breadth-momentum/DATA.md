@@ -5,7 +5,7 @@ this repository, so nothing large sits in git.
 
 | file | size | sha256 |
 |---|---|---|
-| `daily.parquet` | 20.2 MB | `8C943119079901363FE5BBD6FF87C8AF43E51A08A6F67B96CCE326212DB6DFCE` |
+| `daily.parquet` | 34.0 MB | `8AF365E7B22B13CB10C3A8FFAFB25524277C7B17F0135420049F77CB72C5239C` |
 | `SPY.parquet` | 0.15 MB | `A7A0DBC9F125B11FB233A26B75267E16373D5A47BF000C6C035A20FE9C95EA49` |
 
 ## Download
@@ -24,7 +24,7 @@ Or click the links in the release page. Verify with `sha256sum` (Linux/macOS) or
 
 | file | grain | contents |
 |---|---|---|
-| `constituents/daily.parquet` | one row per issuer per trading day, 1.57M rows | `close`, `adj_close`, `volume`, `index_weight`, coverage and gate flags |
+| `constituents/daily.parquet` | one row per issuer per trading day, 1.57M rows | `open`, `high`, `low`, `close`, `adj_close`, `volume`, `index_weight`, coverage and gate flags |
 | `prices/SPY.parquet` | one row per trading day, 3,136 rows | benchmark and target series |
 
 Nothing else is needed: no filings, no per-ticker price files, no splits. The constituent
