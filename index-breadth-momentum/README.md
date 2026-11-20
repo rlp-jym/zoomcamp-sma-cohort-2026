@@ -182,8 +182,8 @@ by taking on more risk than the index itself. Full discussion in
 1. **Better coverage:** more historical constituents and prices, especially pre-2019, to widen the window and reduce survivorship bias.
 2. **Other horizons:** 20-day and 60-day targets, where breadth signals are more likely to carry information than at 5 days.
 3. **Other models:** gradient boosting (XGBoost/LightGBM), and a classification target with probability-based sizing instead of fixed exposure.
-4. **Regime conditioning:** trade breadth signals only when volatility or trend regimes make participation meaningful.Z
-5. **Point-in-time sector and fundamentals:** — sector breadth and earnings data, if a reliable historical source can be licensed.
+4. **Regime conditioning:** trade breadth signals only when volatility or trend regimes make participation meaningful.
+5. **Point-in-time sector and fundamentals:** sector breadth and earnings data, if a reliable historical source can be licensed.
 
 ## Reproduce
 
@@ -204,6 +204,8 @@ Double-click any of these from `index-breadth-momentum/`:
 
 | Script | What it does | Environment | Approx. time |
 |---|---|---|---|
+| `run_daily.bat` | Refresh prices, score the latest row, send the Telegram alert | full | 2-4 min |
+| `setup_task.bat` | Register `run_daily.bat` for 03:00 Mon-Fri in Task Scheduler | full | seconds |
 | `run_notebook.bat` | Open JupyterLab (`exec` runs top-to-bottom and writes `docs/notebook.html`) | full | open: seconds; exec: ~2 min |
 | `run_tests.bat` | Run the 44 schema and data-contract tests | full | ~40 s |
 | `run_pipeline.bat` | Rebuild the dataset from SEC EDGAR, module by module | full | ~20 min |
@@ -223,18 +225,74 @@ cd sma-cohort-2026/index-breadth-momentum
 double-click setup.bat
         |
         v
-double-click run_notebook.bat   -> the study, top to bottom
+copy .env.example to .env, add Telegram token + chat id
         |
         v
-double-click run_tests.bat      -> 44 tests
+double-click run_daily.bat      -> one signal, sent to your phone
+        |
+        v
+double-click setup_task.bat     -> repeats it at 03:00 Mon-Fri
 ```
 
 Optional:
 
 ```
+run_notebook.bat        -> notebook.ipynb, the whole study
 run_notebook.bat exec   -> re-run it and refresh docs/notebook.html
+run_tests.bat           -> schema and price-reconciliation tests
 run_pipeline.bat        -> full EDGAR rebuild (network, ~20 min)
 ```
+
+## Daily signal
+
+The study ships as a scheduled job, not a web app: once a day it scores the latest row and sends one
+Telegram message. No input needed — the state is the market itself.
+
+```bash
+python -m deploy.main              # refresh prices, retrain, send
+python -m deploy.main --skip-train # the daily path
+python -m deploy.main --dry-run    # print instead of sending
+```
+
+```
+Index Breadth Momentum Alert
+2026-11-20 18:13 EST
+Action: BUY
+
+Model output
+Score: +0.37R - predicted 5-day move, threshold +0.00R
+Expectancy: 0.14R - avg R on 510 validation days above threshold
+Probability of gain: 0.62 - share of the 300 trees expecting a gain
+
+Top drivers
+med_atr_pct_60d: 2.93% - median 60-day ATR across constituents
+breadth_sma_5d_chg_5d: -51.9pp - 5-day change in 5-day breadth
+breadth_rsi30_20d: 17% - weighted share with RSI below 30, 20-day
+
+Risk at 1.77% ATR
+0.25% risk -> 14% equity
+0.50% risk -> 28% equity
+1.00% risk -> 57% equity
+
+Data through 2026-11-20
+```
+
+Action is BUY while the score is above the threshold, SELL when it falls below after being long, and
+WAIT while already in cash. Sizing is `risk ÷ ATR%`, so a calm market buys more notional for the same
+risk. Telegram setup, the Task Scheduler line, and the known limits are in [docs/deploy.md](docs/deploy.md).
+
+**Delivery needs your own bot.** A Telegram bot can only message the account that started it, and the
+token is a secret, so nothing is committed. Two minutes for a reviewer:
+
+1. `copy .env.example .env`, then add `TELEGRAM_BOT_TOKEN` and `TELEGRAM_CHAT_ID`
+2. `uv run python -m deploy.notify` — a sample alert should arrive
+
+Without credentials the job still runs and writes `local_data/latest_signal.json` and
+`local_data/signal.log`, so the pipeline can be checked with no Telegram account at all.
+
+**What was verified.** The token handshake (`getMe`), the full refresh → features → train → infer run,
+the 03:00 Task Scheduler entry, and the message rendering (`--dry-run`). The only unverified hop is
+the final Telegram delivery, which requires a chat id that belongs to whoever runs it.
 
 ## Run
 
