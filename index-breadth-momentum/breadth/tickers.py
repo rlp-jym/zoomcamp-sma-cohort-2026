@@ -27,7 +27,7 @@ SEC_URL = "https://www.sec.gov/files/company_tickers.json"
 CACHE = Path(__file__).resolve().parents[1] / "config" / "tickers.csv"
 SEC_CACHE = CACHE.parent / "sec_tickers.csv"
 ALIASES = CACHE.parent / "aliases.csv"
-SUFFIX = r"\b(inc|corp|corporation|co|company|cos|ltd|plc|holdings|group|the|class [abc]|com|new|del|sa|nv|ag)\b"
+SUFFIX = r"\b(inc|corp|corporation|co|company|cos|ltd|plc|holdings|group|the|class [abc]|com|new|del|sa|nv|ag|reit)\b"
 
 
 def norm_name(name: str) -> str:

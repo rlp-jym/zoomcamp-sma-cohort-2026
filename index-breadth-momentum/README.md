@@ -76,10 +76,10 @@ Measured coverage per snapshot (`data/verify_report.csv`):
 | period | `coverage_names` | `coverage_weight` |
 |---|---|---|
 | 1995-2013 | 0% | 0% — prices not downloaded |
-| 2014-09-30 | 65% | 79% |
-| **2016-09-30** | **70%** | **84%** |
-| 2018-09-30 | 76% | 89% |
-| 2019-09-30 | 87% | 95% |
+| 2014-09-30 | 65% | 80% |
+| **2016-09-30** | **73%** | **87%** |
+| 2018-09-30 | 82% | 92% |
+| 2019-09-30 | 84% | 94% |
 | 2021-03-31 | 90% | 97% |
 | 2025-03-31 | 97% | 99% |
 
@@ -87,7 +87,7 @@ Measured coverage per snapshot (`data/verify_report.csv`):
 because the missing names are not random.
 
 **Model window: 2016-01-01 onward.** Weighted breadth is readable from 2014-12-01, equal-weight
-from 2019-11-18 — each gated on its own denominator at 80%. Every row carries
+from 2018-05-29 — each gated on its own denominator at 80%. Every row carries
 `coverage_names`, `coverage_weight`, `weighted_ok` and `equal_weight_ok`, so the reader can
 see exactly what backs each date. A stricter 90% subset is a filter away, not the default.
 

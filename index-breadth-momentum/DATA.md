@@ -5,7 +5,7 @@ this repository, so nothing large sits in git.
 
 | file | size | sha256 |
 |---|---|---|
-| `sp500_constituents_daily.parquet` | 34.5 MB | `7FB400218B842FE9EB080B871AC556673A962966AA75D7549F09585214E877F2` |
+| `sp500_constituents_daily.parquet` | 35.2 MB | `D799BEFFE32BE94581E47F532A9F88A02CABF5D25E21EDEABA73AFB6D2DCEE34` |
 | `SPY.parquet` | 0.15 MB | `A7A0DBC9F125B11FB233A26B75267E16373D5A47BF000C6C035A20FE9C95EA49` |
 
 ## Download

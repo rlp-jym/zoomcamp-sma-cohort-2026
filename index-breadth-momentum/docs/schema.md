@@ -242,7 +242,7 @@ Each measure is gated on its own denominator, both at 80%:
 | measure | gate | readable from |
 |---|---|---|
 | weighted breadth | `coverage_weight >= 80` | 2014-12-01 |
-| equal-weight breadth | `coverage_names >= 80` | 2019-11-18 |
+| equal-weight breadth | `coverage_names >= 80` | 2018-05-29 |
 
 Weight coverage recovers years before name coverage does, because the names Yahoo lost are
 mostly small. A stricter 90% subset can be filtered from the same columns when a cleaner
