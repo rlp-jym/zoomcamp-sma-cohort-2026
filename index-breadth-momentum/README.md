@@ -2,6 +2,14 @@
 
 Predicting SPY with market breadth: what share of the index is actually participating.
 
+## Problem
+
+Market breadth has been a widely known indicator, but its practical use case has been unclear.
+
+## Solution
+
+Build a model that converts breadth data into actionable signals, and test whether those signals can outperform low-risk fixed-interest income.
+
 **Status: ingestion chain done and verified. Breadth features and models not started.**
 
 | Step | State |
