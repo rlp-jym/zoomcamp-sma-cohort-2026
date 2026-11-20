@@ -141,6 +141,11 @@ def main() -> None:
 
     print(f"predicted {pred:+.2f}R, action {action}")
     notify.send(payload, dry_run=args.dry_run)
+
+    if args.dry_run:
+        print("dry run: state and latest_signal.json left untouched")
+        return
+
     notify.write_state("LONG" if long_now else "CASH", data_through)
 
     signal = {

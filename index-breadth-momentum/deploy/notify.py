@@ -62,12 +62,14 @@ def _telegram(text: str) -> bool:
 
 def send(payload: dict, dry_run: bool = False) -> None:
     text = format_message(payload)
+    plain = text.replace("<b>", "").replace("</b>", "")
+
     LOG_FILE.parent.mkdir(exist_ok=True)
     with LOG_FILE.open("a", encoding="utf-8") as fh:
-        fh.write(text.replace("<b>", "").replace("</b>", "") + "\n\n")
+        fh.write(plain + "\n\n")
 
     if dry_run:
-        print(text)
+        print(plain)
         return
 
     if _telegram(text):

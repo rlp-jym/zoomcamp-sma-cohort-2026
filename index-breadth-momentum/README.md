@@ -205,6 +205,7 @@ Double-click any of these from `index-breadth-momentum/`:
 | Script | What it does | Environment | Approx. time |
 |---|---|---|---|
 | `run_daily.bat` | Refresh prices, score the latest row, send the Telegram alert | full | 2-4 min |
+| `run_signal_preview.bat` | Print the alert for the last cached session, no Telegram, no refresh | full | first run ~2 min (trains), then seconds |
 | `setup_task.bat` | Register `run_daily.bat` for 03:00 Mon-Fri in Task Scheduler | full | seconds |
 | `run_notebook.bat` | Open JupyterLab (`exec` runs top-to-bottom and writes `docs/notebook.html`) | full | open: seconds; exec: ~2 min |
 | `run_tests.bat` | Run the 44 schema and data-contract tests | full | ~40 s |
@@ -237,6 +238,7 @@ double-click setup_task.bat     -> repeats it at 03:00 Mon-Fri
 Optional:
 
 ```
+run_signal_preview.bat  -> what the alert looks like, sent nowhere
 run_notebook.bat        -> notebook.ipynb, the whole study
 run_notebook.bat exec   -> re-run it and refresh docs/notebook.html
 run_tests.bat           -> schema and price-reconciliation tests

@@ -27,10 +27,12 @@ python -m deploy.main                    # refresh, retrain, alert
 python -m deploy.main --skip-train       # daily path: reuse the saved model
 python -m deploy.main --offline          # no network, cached data only
 python -m deploy.main --dry-run          # print the alert, do not send
+python -m deploy.main --dry-run --offline  # preview in seconds
 python -m deploy.notify                  # send a fixed sample message
 ```
 
 On Windows the same thing is `run_daily.bat`, which logs to `local_data/run.log`.
+For a preview that sends nothing, double-click `run_signal_preview.bat`.
 
 ## Telegram setup
 
