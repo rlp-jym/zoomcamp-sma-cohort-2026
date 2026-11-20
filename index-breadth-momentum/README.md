@@ -86,7 +86,7 @@ Measured coverage per snapshot (`data/verify_report.csv`):
 `coverage_names` counts holdings; `coverage_weight` counts index weight. They differ
 because the missing names are not random.
 
-**Model window: 2016-01-01 onward.** Weighted breadth is readable from 2015-11-30, equal-weight
+**Model window: 2016-01-01 onward.** Weighted breadth is readable from 2014-12-01, equal-weight
 from 2019-11-18 — each gated on its own denominator at 80%. Every row carries
 `coverage_names`, `coverage_weight`, `weighted_ok` and `equal_weight_ok`, so the reader can
 see exactly what backs each date. A stricter 90% subset is a filter away, not the default.

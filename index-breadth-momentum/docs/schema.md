@@ -175,6 +175,13 @@ which regime produced a number.
 
 `config/sec_tickers.csv` is a regenerable cache of the SEC company list and is gitignored.
 
+`config/aliases.csv` holds curated name → ticker pairs for companies the lookup cannot
+bridge: renames (`Adobe Systems` → `ADBE`), SEC list gaps (`AVB` is absent from
+`company_tickers.json`) and printed-name drift. Each row carries the reconciliation ratio
+and `ok`; only `ok=True` is applied. An alias whose reported price does not agree with the
+market is rejected, so a wrong guess cannot enter. Regenerate with
+`python -m breadth.aliases`.
+
 ## 8. `config/exclusions.csv`
 
 Rows whose ticker cannot be reconciled with the price the fund reported. Committed, so the
@@ -234,7 +241,7 @@ Each measure is gated on its own denominator, both at 80%:
 
 | measure | gate | readable from |
 |---|---|---|
-| weighted breadth | `coverage_weight >= 80` | 2015-11-30 |
+| weighted breadth | `coverage_weight >= 80` | 2014-12-01 |
 | equal-weight breadth | `coverage_names >= 80` | 2019-11-18 |
 
 Weight coverage recovers years before name coverage does, because the names Yahoo lost are

@@ -26,12 +26,15 @@ API = "https://api.openfigi.com/v3/mapping"
 SEC_URL = "https://www.sec.gov/files/company_tickers.json"
 CACHE = Path(__file__).resolve().parents[1] / "config" / "tickers.csv"
 SEC_CACHE = CACHE.parent / "sec_tickers.csv"
+ALIASES = CACHE.parent / "aliases.csv"
 SUFFIX = r"\b(inc|corp|corporation|co|company|cos|ltd|plc|holdings|group|the|class [abc]|com|new|del|sa|nv|ag)\b"
 
 
 def norm_name(name: str) -> str:
     s = unicodedata.normalize("NFKD", name).encode("ascii", "ignore").decode().lower()
     s = s.replace("&", " and ")
+    s = re.sub(r"(?<=\b[a-z])\.", "", s)  # N.V. -> NV
+    s = re.sub(r"/[a-z]{2,3}/", " ", s)  # SEC state-of-incorporation markers: /DE/
     s = re.sub(r"[^a-z0-9 ]", " ", s)
     s = re.sub(SUFFIX, " ", s)
     return re.sub(r"\s+", " ", s).strip()
@@ -112,9 +115,18 @@ def _lookup(name: str, table: dict[str, str]) -> str | None:
     return table.get(n) or table.get(n.replace(" ", ""))
 
 
+def _aliases() -> pd.DataFrame:
+    """Curated renames. Empty until `python -m breadth.aliases` has verified them."""
+    if not ALIASES.exists():
+        return pd.DataFrame(columns=["name", "ticker", "ok"])
+    df = pd.read_csv(ALIASES, dtype={"ticker": str, "name": str})
+    return df[df["ok"].astype(str).str.lower().isin(["true", "1"])]
+
+
 def map_tickers(df: pd.DataFrame) -> pd.DataFrame:
     """Fill df['ticker'] from CUSIP, then company name, then the SEC name list."""
     df = df.copy()
+    aliases = _aliases()
     df["cusip"] = df["cusip"].replace({"000000000": None})  # foreign issuers report a dummy
 
     known = _openfigi(sorted(df["cusip"].dropna().unique()))
@@ -133,6 +145,12 @@ def map_tickers(df: pd.DataFrame) -> pd.DataFrame:
     by_name_ticker = df["name"].map(lambda n: _lookup(n, by_name))
     df["ticker"] = df["ticker"].fillna(by_name_ticker)
     df.loc[df["ticker_source"].isna() & by_name_ticker.notna(), "ticker_source"] = "name"
+
+    # curated aliases for renames and missing SEC entries, already verified against prices
+    by_alias = _keyed(zip(aliases["name"], aliases["ticker"])) if len(aliases) else {}
+    by_alias_ticker = df["name"].map(lambda n: _lookup(n, by_alias))
+    df["ticker"] = df["ticker"].fillna(by_alias_ticker)
+    df.loc[df["ticker_source"].isna() & by_alias_ticker.notna(), "ticker_source"] = "alias"
 
     sec = _sec_tickers()
     by_sec = df["name"].map(lambda n: _lookup(n, sec))

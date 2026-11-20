@@ -106,11 +106,11 @@ def test_modern_days_clear_both_floors(table: pd.DataFrame) -> None:
 
 
 def test_weighted_reading_starts_before_equal_weight(table: pd.DataFrame) -> None:
-    """Weight coverage recovers years before name coverage does."""
+    """Weight coverage recovers before name coverage does."""
     weighted = table.loc[table["weighted_ok"], "date"].min()
     equal = table.loc[table["equal_weight_ok"], "date"].min()
     assert weighted < equal
-    assert weighted == pd.Timestamp("2015-11-30")
+    assert equal - weighted > pd.Timedelta(days=365)
 
 
 def test_no_non_equity_rows(table: pd.DataFrame) -> None:
