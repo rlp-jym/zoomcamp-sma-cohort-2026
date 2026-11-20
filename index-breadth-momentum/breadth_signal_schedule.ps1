@@ -2,7 +2,7 @@ $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 $task = "IndexBreadthDailySignal"
 
 $action = New-ScheduledTaskAction -Execute "cmd.exe" `
-    -Argument "/c `"$here\run_daily.bat`" scheduled" -WorkingDirectory $here
+    -Argument "/c `"$here\breadth_signal_send.bat`" scheduled" -WorkingDirectory $here
 $trigger = New-ScheduledTaskTrigger -Weekly `
     -DaysOfWeek Monday, Tuesday, Wednesday, Thursday, Friday -At 3:00am
 $settings = New-ScheduledTaskSettingsSet -StartWhenAvailable `

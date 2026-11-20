@@ -117,7 +117,23 @@ disagree (0.00% of weight). Every excluded row is explained in
 
 Every model is selected on validation only. The last section refits the chosen forest on train +
 validation and evaluates it once on the test block, so the final numbers are genuinely out of
-sample.
+sample. Runtime is about 40 seconds on a laptop.
+
+EDA before modelling answers two questions: is the target well behaved, and does any feature move
+with it?
+
+![Target distribution](docs/target_distribution.png)
+
+The target is roughly symmetric, centred at +0.17R to +0.20R depending on the split, and up days are
+58-61% of the sample in every block — so the mean is the bar any model has to clear.
+
+![Feature vs target correlation](docs/feature_correlation.png)
+
+No single feature exceeds a Spearman correlation of **0.05** with the target, and several run the
+opposite way to intuition: more stocks above their 20-day average correlates *negatively* with the
+next 5 days, while more stocks oversold (RSI below 30) correlates positively. Any edge has to come
+from interactions between these weak signals, which is why the trees were worth trying and why the
+resulting edge is small.
 
 ## Features
 
@@ -185,32 +201,19 @@ by taking on more risk than the index itself. Full discussion in
 4. **Regime conditioning:** trade breadth signals only when volatility or trend regimes make participation meaningful.
 5. **Point-in-time sector and fundamentals:** sector breadth and earnings data, if a reliable historical source can be licensed.
 
-## Reproduce
-
-The notebook reads both parquet files straight from the `v0.1-data` release URL, so nothing needs to
-be downloaded first:
-
-```bash
-cd index-breadth-momentum
-uv sync
-uv run jupyter lab notebook.ipynb     # run all cells, top to bottom
-```
-
-Runtime is about 40 seconds on a laptop.
-
 ## Quality-of-life scripts
 
 Double-click any of these from `index-breadth-momentum/`:
 
 | Script | What it does | Environment | Approx. time |
 |---|---|---|---|
-| `run_daily.bat` | Refresh prices, score the latest row, send the Telegram alert | full | 2-4 min |
-| `run_signal_preview.bat` | Print the alert for the last cached session, no Telegram, no refresh | full | first run ~2 min (trains), then seconds |
-| `setup_task.bat` | Register `run_daily.bat` for 03:00 Mon-Fri in Task Scheduler | full | seconds |
-| `run_notebook.bat` | Open JupyterLab (`exec` runs top-to-bottom and writes `docs/notebook.html`) | full | open: seconds; exec: ~2 min |
-| `run_tests.bat` | Run the 44 schema and data-contract tests | full | ~40 s |
-| `run_pipeline.bat` | Rebuild the dataset from SEC EDGAR, module by module | full | ~20 min |
-| `setup.bat` | `uv sync` the shared environment, then list the rest | full | ~10 s |
+| `breadth_signal_send.bat` | Refresh prices, score the latest row, send the Telegram alert | full | 2-4 min |
+| `breadth_signal_preview.bat` | Print the alert for the last cached session, no Telegram, no refresh | full | first run ~2 min (trains), then seconds |
+| `breadth_signal_schedule.bat` | Register `breadth_signal_send.bat` for 03:00 Mon-Fri in Task Scheduler | full | seconds |
+| `breadth_notebook.bat` | Open JupyterLab (`exec` runs top-to-bottom and writes `docs/notebook.html`) | full | open: seconds; exec: ~2 min |
+| `breadth_tests.bat` | Run the 44 schema and data-contract tests | full | ~40 s |
+| `breadth_pipeline.bat` | Rebuild the dataset from SEC EDGAR, module by module | full | ~20 min |
+| `breadth_setup.bat` | `uv sync` the shared environment, then list the rest | full | ~10 s |
 
 `full` = the root `uv sync`.
 
@@ -223,26 +226,26 @@ git clone <repo-url>
 cd sma-cohort-2026/index-breadth-momentum
         |
         v
-double-click setup.bat
+double-click breadth_setup.bat
         |
         v
 copy .env.example to .env, add Telegram token + chat id
         |
         v
-double-click run_daily.bat      -> one signal, sent to your phone
+double-click breadth_signal_send.bat      -> one signal, sent to your phone
         |
         v
-double-click setup_task.bat     -> repeats it at 03:00 Mon-Fri
+double-click breadth_signal_schedule.bat     -> repeats it at 03:00 Mon-Fri
 ```
 
 Optional:
 
 ```
-run_signal_preview.bat  -> what the alert looks like, sent nowhere
-run_notebook.bat        -> notebook.ipynb, the whole study
-run_notebook.bat exec   -> re-run it and refresh docs/notebook.html
-run_tests.bat           -> schema and price-reconciliation tests
-run_pipeline.bat        -> full EDGAR rebuild (network, ~20 min)
+breadth_signal_preview.bat  -> what the alert looks like, sent nowhere
+breadth_notebook.bat        -> notebook.ipynb, the whole study
+breadth_notebook.bat exec   -> re-run it and refresh docs/notebook.html
+breadth_tests.bat           -> schema and price-reconciliation tests
+breadth_pipeline.bat        -> full EDGAR rebuild (network, ~20 min)
 ```
 
 ## Daily signal

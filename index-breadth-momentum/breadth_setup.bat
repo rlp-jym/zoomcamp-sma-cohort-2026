@@ -9,10 +9,10 @@ if errorlevel 1 goto :fail
 
 echo.
 echo Done. Next:
-echo   run_tests.bat        run the test suite
-echo   run_notebook.bat     open the notebook
-echo   run_notebook.bat exec  execute it and export docs\notebook.html
-echo   run_pipeline.bat     rebuild the dataset from EDGAR
+echo   breadth_tests.bat        run the test suite
+echo   breadth_notebook.bat     open the notebook
+echo   breadth_notebook.bat exec  execute it and export docs\notebook.html
+echo   breadth_pipeline.bat     rebuild the dataset from EDGAR
 echo   run_app.bat          start the Streamlit dashboard
 echo   run_docker.bat       build and run the dashboard in Docker
 echo.

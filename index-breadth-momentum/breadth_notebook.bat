@@ -23,6 +23,6 @@ exit /b 0
 
 :fail
 echo.
-echo Something failed. Run setup.bat first.
+echo Something failed. Run breadth_setup.bat first.
 pause
 exit /b 1

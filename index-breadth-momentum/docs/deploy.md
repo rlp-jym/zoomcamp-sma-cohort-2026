@@ -31,8 +31,8 @@ python -m deploy.main --dry-run --offline  # preview in seconds
 python -m deploy.notify                  # send a fixed sample message
 ```
 
-On Windows the same thing is `run_daily.bat`, which logs to `local_data/run.log`.
-For a preview that sends nothing, double-click `run_signal_preview.bat`.
+On Windows the same thing is `breadth_signal_send.bat`, which logs to `local_data/run.log`.
+For a preview that sends nothing, double-click `breadth_signal_preview.bat`.
 
 ## Telegram setup
 
@@ -66,12 +66,12 @@ Everything except the final delivery is reproducible without a Telegram account:
 
 ## Schedule
 
-Windows Task Scheduler, weekdays at 03:00: double-click `setup_task.bat`. It
-calls `setup_task.ps1`, which registers:
+Windows Task Scheduler, weekdays at 03:00: double-click `breadth_signal_schedule.bat`. It
+calls `breadth_signal_schedule.ps1`, which registers:
 
 ```
 Task name : IndexBreadthDailySignal
-Runs      : cmd.exe /c "<repo>\index-breadth-momentum\run_daily.bat"
+Runs      : cmd.exe /c "<repo>\index-breadth-momentum\breadth_signal_send.bat"
 When      : 03:00, MON-FRI
 ```
 

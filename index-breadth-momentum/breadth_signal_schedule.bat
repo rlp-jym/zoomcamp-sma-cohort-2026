@@ -2,7 +2,7 @@
 setlocal
 cd /d "%~dp0"
 
-powershell -NoProfile -ExecutionPolicy Bypass -File "%~dp0setup_task.ps1"
+powershell -NoProfile -ExecutionPolicy Bypass -File "%~dp0breadth_signal_schedule.ps1"
 if errorlevel 1 goto :fail
 
 echo.
