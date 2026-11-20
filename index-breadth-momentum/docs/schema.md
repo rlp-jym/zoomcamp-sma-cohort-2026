@@ -194,7 +194,7 @@ keeps the row (it still carries weight) but clears its ticker and sets `excluded
 Each excluded row, with the corporate action behind it, is explained in
 [exclusions.md](exclusions.md).
 
-## 9. `data/constituents/daily.parquet`
+## 9. `data/constituents/sp500_constituents_daily.parquet`
 
 The constituent table: one row per issuer per trading day, priced and weighted. This is the
 only input breadth features may read. 1.56M rows, 2014-06-02 -> 2026-11-17.

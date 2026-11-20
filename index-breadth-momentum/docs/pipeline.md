@@ -29,7 +29,7 @@ EDGAR submissions index
         |
         v
   as-of join on available_at, issuer level
-  -> data/constituents/daily.parquet             the constituent table (1.56M rows)
+  -> data/constituents/sp500_constituents_daily.parquet             the constituent table (1.56M rows)
 ```
 
 Breadth itself is computed in the research notebook (EDA), from this table: moving averages
@@ -43,7 +43,7 @@ can be changed without a rebuild.
 | mapped layer | `uv run python -m breadth.holdings` | `data/mapped/` |
 | prices | `uv run python -m breadth.prices` | `data/prices/`, `data/splits.parquet` |
 | verify | `uv run python -m breadth.verify` | `data/verify_report.csv` |
-| constituents | `uv run python -m breadth.constituents` | `data/constituents/daily.parquet` |
+| constituents | `uv run python -m breadth.constituents` | `data/constituents/sp500_constituents_daily.parquet` |
 
 ## Append-only rules
 

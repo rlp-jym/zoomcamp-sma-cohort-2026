@@ -6,7 +6,7 @@ the market could have known it.
 
     uv run python -m breadth.constituents
 
-Output: data/constituents/daily.parquet
+Output: data/constituents/sp500_constituents_daily.parquet
     date, index_name, issuer_id, name, ticker,
     close, adj_close, volume, index_weight,
     coverage_names, coverage_weight, equal_weight_ok, days_since_filing
@@ -20,7 +20,7 @@ import pandas as pd
 
 from breadth import holdings, prices
 
-OUT = Path(__file__).resolve().parents[1] / "data" / "constituents" / "daily.parquet"
+OUT = Path(__file__).resolve().parents[1] / "data" / "constituents" / "sp500_constituents_daily.parquet"
 INDEX_NAME = "SP500"
 MIN_WEIGHT_COVERAGE = 80.0  # percent of index weight needed for the weighted reading
 MIN_NAME_COVERAGE = 80.0  # percent of constituents needed for the equal-weight reading

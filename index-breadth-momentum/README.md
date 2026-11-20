@@ -18,7 +18,7 @@ Predicting SPY with market breadth: what share of the index is actually particip
 ## Data
 
 Two files run the notebook, both attached to the `v0.1-data` release:
-`data/constituents/daily.parquet` and `data/prices/SPY.parquet`. Nothing large is in git.
+`data/constituents/sp500_constituents_daily.parquet` and `data/prices/SPY.parquet`. Nothing large is in git.
 
 Download links, checksums and the rebuild commands: [DATA.md](DATA.md).
 
@@ -44,7 +44,7 @@ EDGAR submissions index
         |
         v
   as-of join on available_at, issuer level
-  -> data/constituents/daily.parquet             the constituent table
+  -> data/constituents/sp500_constituents_daily.parquet             the constituent table
 ```
 
 ## Run

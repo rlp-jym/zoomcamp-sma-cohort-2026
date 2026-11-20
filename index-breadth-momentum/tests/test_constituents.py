@@ -1,7 +1,7 @@
 """Contracts for the daily constituent table (C1/C2).
 
 Run: cd project_1 && uv run pytest -q
-Reads data/constituents/daily.parquet, so run `python -m breadth.constituents` first.
+Reads data/constituents/sp500_constituents_daily.parquet, so run `python -m breadth.constituents` first.
 """
 
 from __future__ import annotations

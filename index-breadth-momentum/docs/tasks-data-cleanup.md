@@ -43,7 +43,7 @@ append-only claim stays honest): nulled the `000000000` CUSIP (A1), renamed `val
 | C1 | `[x]` | `breadth/constituents.py`: as-of join on `available_at`, prices only `<= date` | 1.56M issuer-days; `tests/test_constituents.py` checks weights, coverage, filing lag |
 | C2 | `[x]` | `coverage_names`, `coverage_weight`, `equal_weight_ok` per date | weighted breadth renormalises over the priced subset implicitly |
 | C3 | `[x]` | Capture `assetCat`, `payoffProfile`; filter the universe to common equity | 14,117 `EC` rows in, one `DE` CVR out; `test_no_non_equity_rows` |
-| C4 | `[x]` | Write `data/constituents/daily.parquet` | feature code reads this and nothing else |
+| C4 | `[x]` | Write `data/constituents/sp500_constituents_daily.parquet` | feature code reads this and nothing else |
 | C5 | `[x]` | Weighting capability only: `weighted_ok` and `equal_weight_ok` flags, each on its own 80% gate | flags live in `data/constituents/`; the readings themselves are notebook/EDA work |
 
 **Why C last:** the constituent table is the only thing features should import. Until A and B

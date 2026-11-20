@@ -5,7 +5,7 @@ this repository, so nothing large sits in git.
 
 | file | size | sha256 |
 |---|---|---|
-| `daily.parquet` | 34.0 MB | `8AF365E7B22B13CB10C3A8FFAFB25524277C7B17F0135420049F77CB72C5239C` |
+| `sp500_constituents_daily.parquet` | 34.0 MB | `8AF365E7B22B13CB10C3A8FFAFB25524277C7B17F0135420049F77CB72C5239C` |
 | `SPY.parquet` | 0.15 MB | `A7A0DBC9F125B11FB233A26B75267E16373D5A47BF000C6C035A20FE9C95EA49` |
 
 ## Download
@@ -13,7 +13,7 @@ this repository, so nothing large sits in git.
 ```bash
 BASE=https://github.com/rlp-jym/zoomcamp-sma-cohort-2026/releases/download/v0.1-data
 mkdir -p data/constituents data/prices
-curl -L -o data/constituents/daily.parquet $BASE/daily.parquet
+curl -L -o data/constituents/sp500_constituents_daily.parquet $BASE/sp500_constituents_daily.parquet
 curl -L -o data/prices/SPY.parquet       $BASE/SPY.parquet
 ```
 
@@ -24,7 +24,7 @@ Or click the links in the release page. Verify with `sha256sum` (Linux/macOS) or
 
 | file | grain | contents |
 |---|---|---|
-| `constituents/daily.parquet` | one row per issuer per trading day, 1.57M rows | `open`, `high`, `low`, `close`, `adj_close`, `volume`, `index_weight`, coverage and gate flags |
+| `constituents/sp500_constituents_daily.parquet` | one row per issuer per trading day, 1.57M rows | `open`, `high`, `low`, `close`, `adj_close`, `volume`, `index_weight`, coverage and gate flags |
 | `prices/SPY.parquet` | one row per trading day, 3,136 rows | benchmark and target series |
 
 Nothing else is needed: no filings, no per-ticker price files, no splits. The constituent
